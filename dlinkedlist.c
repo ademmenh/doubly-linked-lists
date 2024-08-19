@@ -145,6 +145,13 @@ void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
     }
 }
 
+/*
+void fIntDNodeAddBegin (struct intDList *pintDList, int value)
+{
+    fIntDNodeAddbyIndex (&(*pintDList), 0, value);
+}
+*/
+
 void fIntDNodeFreebyIndex (struct intDList *pintDList, int index)
 {
 
