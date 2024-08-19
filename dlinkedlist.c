@@ -243,15 +243,64 @@ void fIntDNodeFreebyIndex (struct intDList *pintDList, int index)
     (*pintDList).length--;
 }
 
+/*
 void fIntDNodeFreeatBegin (struct intDList *pintDList)
 {
     fIntDNodeFreebyIndex (&(*pintDList), 0);
 }
+*/
 
+/*
 void fIntDNodeFreeatEnd (struct intDList *pintDList)
 {
     fIntDNodeFreebyIndex (&(*pintDList), (*pintDList).length-1);
 }
+*/
+
+void fIntDNodeFreeatBegin (struct intDList *pintDList)
+{
+    
+    struct intDNode *vpTemp = (*pintDList).H;
+
+    if ( (*pintDList).length==0 )
+    {
+        printf ("The list is already empty !!!");
+        return;
+    }
+
+
+    (*pintDList).H = (*pintDList).H->Next;
+    
+    vpTemp->Next = NULL;
+    vpTemp->Previous = NULL;
+    vpTemp->Value = 0;
+    free (vpTemp);
+
+    (*pintDList).length--;
+}
+
+void fINtDNodeFreeatEnd (struct intDList *pintDList)
+{
+    
+    struct intDNode *vpTemp = (*pintDList).T;
+    
+
+    if ( (*pintDList).length==0 )
+    {
+        printf ("The DList is already empty !!!");
+        return;
+    }
+    
+    (*pintDList).T = (*pintDList).T->Previous;
+
+    vpTemp->Next = NULL;
+    vpTemp->Previous = NULL;
+    vpTemp->Value = 0;
+    free (vpTemp);
+
+    (*pintDList).length--;
+}
+
 
 void fIntDNodeFreeAll (struct intDList *pintDList)
 {
@@ -263,7 +312,7 @@ void fIntDNodeFreeAll (struct intDList *pintDList)
 }
 
 /*
-void fFreeIntAllDNode (struct intDList *pintDList)
+void fIntDNodeFreeAll (struct intDList *pintDList)
 {
 
 
