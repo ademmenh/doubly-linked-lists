@@ -42,6 +42,8 @@ struct intDNode* fIntDNodeCreate (int value)
     return vp;
 }
 
+
+/*
 void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
 {
 
@@ -64,7 +66,9 @@ void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
 
     (*pintDList).length++;
 }
+*/
 
+/*
 void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
 {
 
@@ -87,6 +91,7 @@ void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
 
     (*pintDList).length++;
 }
+*/
 
 void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
 {
@@ -145,12 +150,16 @@ void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
     }
 }
 
-/*
-void fIntDNodeAddBegin (struct intDList *pintDList, int value)
+void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
 {
     fIntDNodeAddbyIndex (&(*pintDList), 0, value);
 }
-*/
+
+void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
+{
+    fIntDNodeAddbyIndex (&(*pintDList), (*pintDList).length-1, value);
+}
+
 
 void fIntDNodeFreebyIndex (struct intDList *pintDList, int index)
 {
@@ -241,7 +250,6 @@ void fIntDNodePop ()
 
 void fIntDNodeFreeAll (struct intDList *pintDList)
 {
-
 
     while ( (*pintDList).length>0 )
     {
