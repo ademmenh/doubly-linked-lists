@@ -42,57 +42,6 @@ struct intDNode* fIntDNodeCreate (int value)
     return vp;
 }
 
-
-/*
-void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
-{
-
-    struct intDNode *vp = fIntDNodeCreate(value);
-    struct intDNode *vpTemp = (*pintDList).T;
-
-    if ( (*pintDList).length==0 )
-    {
-        (*pintDList).H = vp;
-        (*pintDList).T = vp;
-    }
-    else
-    {
-        (*pintDList).T = vp;
-        (*pintDList).T->Previous = vpTemp;
-        vpTemp->Next = vp;
-    }
-
-
-
-    (*pintDList).length++;
-}
-*/
-
-/*
-void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
-{
-
-    struct intDNode *vp = fIntDNodeCreate (value);
-    struct intDNode *vpTemp= (*pintDList).H;
-
-    if ( (*pintDList).length==0 )
-    {
-        (*pintDList).H = vp;
-        (*pintDList).T = vp;
-    }
-    else
-    {
-        (*pintDList).H = vp;
-        (*pintDList).H->Next = vpTemp;
-        vpTemp->Previous = vp;
-    }
-
-
-
-    (*pintDList).length++;
-}
-*/
-
 void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
 {
     
@@ -148,6 +97,8 @@ void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
             }
         }
     }
+
+
 }
 
 void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
@@ -159,6 +110,56 @@ void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
 {
     fIntDNodeAddbyIndex (&(*pintDList), (*pintDList).length-1, value);
 }
+
+/*
+void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
+{
+
+    struct intDNode *vp = fIntDNodeCreate(value);
+    struct intDNode *vpTemp = (*pintDList).T;
+
+    if ( (*pintDList).length==0 )
+    {
+        (*pintDList).H = vp;
+        (*pintDList).T = vp;
+    }
+    else
+    {
+        (*pintDList).T = vp;
+        (*pintDList).T->Previous = vpTemp;
+        vpTemp->Next = vp;
+    }
+
+
+
+    (*pintDList).length++;
+}
+*/
+
+/*
+void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
+{
+
+    struct intDNode *vp = fIntDNodeCreate (value);
+    struct intDNode *vpTemp= (*pintDList).H;
+
+    if ( (*pintDList).length==0 )
+    {
+        (*pintDList).H = vp;
+        (*pintDList).T = vp;
+    }
+    else
+    {
+        (*pintDList).H = vp;
+        (*pintDList).H->Next = vpTemp;
+        vpTemp->Previous = vp;
+    }
+
+
+
+    (*pintDList).length++;
+}
+*/
 
 
 void fIntDNodeFreebyIndex (struct intDList *pintDList, int index)
@@ -243,10 +244,6 @@ void fIntDNodeFreebyIndex (struct intDList *pintDList, int index)
     (*pintDList).length--;
 }
 
-void fIntDNodePop ()
-{
-
-}
 
 void fIntDNodeFreeAll (struct intDList *pintDList)
 {
@@ -257,7 +254,6 @@ void fIntDNodeFreeAll (struct intDList *pintDList)
     }
 }
 
-// another way
 /*
 void fFreeIntAllDNode (struct intDList *pintDList)
 {
@@ -341,7 +337,6 @@ int fQuerryInt ()
     return viNum1;
 }
 
-// depends on the fQuerryInt
 void fIntDListCreateFIFO (struct intDList *pintDList, int DListSize)
 {
 
@@ -354,7 +349,6 @@ void fIntDListCreateFIFO (struct intDList *pintDList, int DListSize)
     }
 }
 
-// depends on the fQuerryInt
 void fIntDListCreateLIFO (struct intDList *pintDList, int DListSize)
 {
 
