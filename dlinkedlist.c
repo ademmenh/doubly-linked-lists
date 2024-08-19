@@ -112,31 +112,6 @@ void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
 }
 
 /*
-void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
-{
-
-    struct intDNode *vp = fIntDNodeCreate(value);
-    struct intDNode *vpTemp = (*pintDList).T;
-
-    if ( (*pintDList).length==0 )
-    {
-        (*pintDList).H = vp;
-        (*pintDList).T = vp;
-    }
-    else
-    {
-        (*pintDList).T = vp;
-        (*pintDList).T->Previous = vpTemp;
-        vpTemp->Next = vp;
-    }
-
-
-
-    (*pintDList).length++;
-}
-*/
-
-/*
 void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
 {
 
@@ -161,6 +136,30 @@ void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
 }
 */
 
+/*
+void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
+{
+
+    struct intDNode *vp = fIntDNodeCreate(value);
+    struct intDNode *vpTemp = (*pintDList).T;
+
+    if ( (*pintDList).length==0 )
+    {
+        (*pintDList).H = vp;
+        (*pintDList).T = vp;
+    }
+    else
+    {
+        (*pintDList).T = vp;
+        (*pintDList).T->Previous = vpTemp;
+        vpTemp->Next = vp;
+    }
+
+
+
+    (*pintDList).length++;
+}
+*/
 
 void fIntDNodeFreebyIndex (struct intDList *pintDList, int index)
 {
@@ -244,6 +243,15 @@ void fIntDNodeFreebyIndex (struct intDList *pintDList, int index)
     (*pintDList).length--;
 }
 
+void fIntDNodeFreeatBegin (struct intDList *pintDList)
+{
+    fIntDNodeFreebyIndex (&(*pintDList), 0);
+}
+
+void fIntDNodeFreeatEnd (struct intDList *pintDList)
+{
+    fIntDNodeFreebyIndex (&(*pintDList), (*pintDList).length-1);
+}
 
 void fIntDNodeFreeAll (struct intDList *pintDList)
 {
