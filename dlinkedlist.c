@@ -50,7 +50,11 @@ void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
     int viCn = 0;
 
 
-
+    if ( index<0)
+    {
+        printf ("The Index is negative !!!");
+        return;
+    }
 
     if ( (*pintDList).length<index )
     {
@@ -169,8 +173,14 @@ void fIntDNodeFreebyIndex (struct intDList *pintDList, int index)
 
 
     int viCn = 0;
-    struct intDNode *vpCn = (*pintDList).H;
+    struct intDNode *vpCn;
+    struct intDNode *vpTemp;
 
+
+    if ( index<0 )
+    {
+        printf ("The index is negative !!!");
+    }
 
     if ( (*pintDList).length-1<index )
     {
@@ -183,11 +193,12 @@ void fIntDNodeFreebyIndex (struct intDList *pintDList, int index)
 
     if ( (*pintDList).length==1 )
     {
+        vpTemp = (*pintDList).H;
 
-        vpCn->Next = NULL;
-        vpCn->Previous = NULL;
-        vpCn->Value=0;
-        free (vpCn);
+        vpTemp->Next = NULL;
+        vpTemp->Previous = NULL;
+        vpTemp->Value=0;
+        free (vpTemp);
 
         (*pintDList).H = NULL;
         (*pintDList).T = NULL;
@@ -196,40 +207,43 @@ void fIntDNodeFreebyIndex (struct intDList *pintDList, int index)
     {
         if ( index==0 )
         {
-
+            vpTemp = (*pintDList).H;
             (*pintDList).H = (*pintDList).H->Next;
-            vpCn->Next->Previous = NULL;
+            vpTemp->Next->Previous = NULL;
 
-            vpCn->Next = NULL;
-            vpCn->Previous = NULL;
-            vpCn->Value = 0;
-            free(vpCn);
+            vpTemp->Next = NULL;
+            vpTemp->Previous = NULL;
+            vpTemp->Value = 0;
+            free(vpTemp);
         }
         else if ( index==(*pintDList).length-1 )
         {
 
+            vpTemp = (*pintDList).T;
             (*pintDList).T = (*pintDList).T->Previous;
-            vpCn->Previous->Next = NULL;
+            vpTemp->Previous->Next = NULL;
 
-            vpCn->Next = NULL;
-            vpCn->Previous = NULL;
-            vpCn->Value = 0;
-            free (vpCn);
+            vpTemp->Next = NULL;
+            vpTemp->Previous = NULL;
+            vpTemp->Value = 0;
+            free (vpTemp);
         }
         else
         {
+            vpCn = (*pintDList).H;
             while ( vpCn!=NULL )
             {
 
                 if ( viCn==index )
                 {
-                    vpCn->Previous->Next = vpCn->Next;
-                    vpCn->Next->Previous = vpCn->Previous;
+                    vpTemp = vpCn;
+                    vpTemp->Previous->Next = vpTemp->Next;
+                    vpTemp->Next->Previous = vpTemp->Previous;
                     
-                    vpCn->Next=NULL;
-                    vpCn->Previous=NULL;
-                    vpCn->Value=0;
-                    free (vpCn);
+                    vpTemp->Next=NULL;
+                    vpTemp->Previous=NULL;
+                    vpTemp->Value=0;
+                    free (vpTemp);
                     break;
                 }
                 
@@ -459,14 +473,20 @@ int main ()
     fIntDListDisplay (dliList1);
     printf ("\n\n");
 
+    printf ("Displaying the DList in reversed:\n");
+    fIntDListDisplayReversed (dliList1);
+    printf ("\n\n");
+
     printf ("Removing by index:\n");
     fIntDNodeFreebyIndex (&dliList1, 0);
-    fIntDNodeFreebyIndex (&dliList1, 1);
+    fIntDNodeFreebyIndex (&dliList1, 0);
     printf ("\n\n");
 
     printf ("Displaying the DList:\n");
     fIntDListDisplay (dliList1);
     printf ("\n\n");
+    
+
 
     printf ("Removing all DNodes:\n");
     fIntDNodeFreeAll (&dliList1);
