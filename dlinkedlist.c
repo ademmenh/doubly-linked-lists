@@ -82,13 +82,13 @@ void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
         }
         else
         {
-            // requires fixing
             while ( vpCn!=NULL )
             {
                 if ( viCn==index )
                 {
                     vp->Next = vpCn;
                     vp->Previous = vpCn->Previous;
+                    vpCn->Previous->Next=vp;
                     vpCn->Previous = vp;
                     break;
                 }
