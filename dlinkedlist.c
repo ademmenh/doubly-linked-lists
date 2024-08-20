@@ -47,6 +47,7 @@ void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
     
     struct intDNode *vp;
     struct intDNode *vpCn = (*pintDList).H;
+    struct intDNode *vpTemp;
     int viCn = 0;
 
 
@@ -74,15 +75,19 @@ void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
     {
         if ( index==0 )
         {
-            vp->Next = (*pintDList).H;
-            (*pintDList).H->Previous = vp;
+            vpTemp = (*pintDList).H;
             (*pintDList).H = vp;
+
+            (*pintDList).H->Next = vpTemp;
+            vpTemp->Previous = (*pintDList).H;
         }
         else if ( index==(*pintDList).length )
         {
-            vp->Previous = (*pintDList).T;
-            (*pintDList).T->Next = vp;
+            vpTemp = (*pintDList).T;
             (*pintDList).T = vp;
+
+            (*pintDList).T->Previous = vpTemp;
+            vpTemp->Next = (*pintDList).T;
         }
         else
         {
@@ -90,10 +95,13 @@ void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
             {
                 if ( viCn==index )
                 {
-                    vp->Next = vpCn;
-                    vp->Previous = vpCn->Previous;
-                    vpCn->Previous->Next=vp;
-                    vpCn->Previous = vp;
+                    vpTemp = vpCn;
+
+                    vp->Next = vpTemp;
+                    vp->Previous = vpTemp->Previous;
+
+                    vpTemp->Previous->Next=vp;
+                    vpTemp->Previous = vp;
                     break;
                 }
 
@@ -122,9 +130,10 @@ void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
 void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
 {
 
-    struct intDNode *vp = fIntDNodeCreate (value);
-    struct intDNode *vpTemp= (*pintDList).H;
+    struct intDNode *vp;
+    struct intDNode *vpTemp;
 
+    vp = fIntDNodeCreate (value);
     if ( (*pintDList).length==0 )
     {
         (*pintDList).H = vp;
@@ -132,7 +141,9 @@ void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
     }
     else
     {
+        vpTemp = (*pintDList).H;
         (*pintDList).H = vp;
+
         (*pintDList).H->Next = vpTemp;
         vpTemp->Previous = vp;
     }
@@ -157,9 +168,11 @@ void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
     }
     else
     {
+        vpTemp = (*pintDList).H;
         (*pintDList).T = vp;
+
         (*pintDList).T->Previous = vpTemp;
-        vpTemp->Next = vp;
+        vpTemp->Next = (*pintDList).T;
     }
 
 
@@ -273,7 +286,7 @@ void fIntDNodeFreeatEnd (struct intDList *pintDList)
 void fIntDNodeFreeatBegin (struct intDList *pintDList)
 {
     
-    struct intDNode *vpTemp = (*pintDList).H;
+    struct intDNode *vpTemp;
 
     if ( (*pintDList).length==0 )
     {
@@ -282,8 +295,11 @@ void fIntDNodeFreeatBegin (struct intDList *pintDList)
     }
 
 
+    vpTemp = (*pintDList).H;
     (*pintDList).H = (*pintDList).H->Next;
-    
+
+    (*pintDList).H->Previous = NULL;    
+
     vpTemp->Next = NULL;
     vpTemp->Previous = NULL;
     vpTemp->Value = 0;
@@ -298,7 +314,7 @@ void fIntDNodeFreeatBegin (struct intDList *pintDList)
 void fINtDNodeFreeatEnd (struct intDList *pintDList)
 {
     
-    struct intDNode *vpTemp = (*pintDList).T;
+    struct intDNode *vpTemp;
     
 
     if ( (*pintDList).length==0 )
@@ -307,13 +323,15 @@ void fINtDNodeFreeatEnd (struct intDList *pintDList)
         return;
     }
     
+    vpTemp = (*pintDList).T;
     (*pintDList).T = (*pintDList).T->Previous;
+
+    (*pintDList).T->Next = NULL;
 
     vpTemp->Next = NULL;
     vpTemp->Previous = NULL;
     vpTemp->Value = 0;
     free (vpTemp);
-
 
     (*pintDList).length--;
 }
@@ -333,20 +351,22 @@ void fIntDNodeFreeAll (struct intDList *pintDList)
 {
 
 
-    struct intDNode *vpCn = (*pintDList).H;
-    struct intDNode *vpTemp = (*pintDList).H;
+    struct intDNode *vpCn;
+    struct intDNode *vpTemp;
+
+
+    vpCn = (*pintDList).H;
     while ( vpCn!=NULL )
     {
-        vpCn = vpCn->Next;
+        vpTemp = vpCn;
 
         vpTemp->Next = NULL;
         vpTemp->Previous = NULL;
         vpTemp->Value = 0;
         free (vpTemp);
-
-        vpTemp = vpCn;
+        
+        vpCn = vpCn->Next;
     }
-
 
 
     (*pintDList).H = NULL;
