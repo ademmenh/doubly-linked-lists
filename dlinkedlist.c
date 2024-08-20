@@ -6,48 +6,63 @@
 
 
 
-struct intDNode
+typedef struct intDNode
 {
     int Value;
     struct intDNode *Previous;
     struct intDNode *Next;
-};
+} intDNode;
 
-struct intDList
+typedef struct intDList
 {
     struct intDNode *H;
     struct intDNode *T;
     int length;
-};
+} intDList;
 
-void fIntDListInit (struct intDList *pintDList)
+
+
+void funcintDListInit (intDList *pintDList)
 {
     pintDList->H = NULL;
     pintDList->T = NULL;
     pintDList->length = 0;
 }
 
+void funcintDNodeInit (intDNode *pintDNode)
+{
+    (*pintDNode).Value = 0;
+    (*pintDNode).Next = NULL;
+    (*pintDNode).Previous = NULL;
+}
+
+void funcintDNodeFree (intDNode *pintDNode)
+{
+    (*pintDNode).Next = NULL;
+    (*pintDNode).Previous = NULL;
+    (*pintDNode).Value = 0;
+    free (pintDNode); // free (&(*pintDNode));
+}
 
 
-struct intDNode* fIntDNodeCreate (int value)
+
+intDNode* funcintDNodeCreate (int value)
 {
 
-    struct intDNode *vp = (struct intDNode *) malloc(sizeof(struct intDNode));
-    
-    
+    intDNode *vp = (struct intDNode *) malloc(sizeof(struct intDNode));
+    funcintDNodeInit (vp);
+
     vp->Value = value;
-    vp->Next = NULL;
-    vp->Previous = NULL;
 
     return vp;
 }
 
-void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
+void funcintDNodeInsert (intDList *pintDList, int index, int value)
 {
     
-    struct intDNode *vp;
-    struct intDNode *vpCn = (*pintDList).H;
-    struct intDNode *vpTemp;
+    intDNode *vp;
+    intDNode *vpCn = (*pintDList).H;
+    intDNode *vpTemp;
     int viCn = 0;
 
 
@@ -64,7 +79,7 @@ void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
     }
 
 
-    vp = fIntDNodeCreate (value);
+    vp = funcintDNodeCreate (value);
 
     if ( (*pintDList).length==0 ) 
     {
@@ -116,24 +131,24 @@ void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
     (*pintDList).length++;
 }
 
-void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
+void funcintDNodeInsertBegin (intDList *pintDList, int value)
 {
-    fIntDNodeAddbyIndex (&(*pintDList), 0, value);
+    funcintDNodeInsert (&(*pintDList), 0, value);
 }
 
-void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
+void funcintDNodeInsertEnd (intDList *pintDList, int value)
 {
-    fIntDNodeAddbyIndex (&(*pintDList), (*pintDList).length, value);
+    funcintDNodeInsert (&(*pintDList), (*pintDList).length, value);
 }
 
 /*
-void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
+void funcintDNodeInsertBegin (intDList *pintDList, int value)
 {
 
-    struct intDNode *vp;
-    struct intDNode *vpTemp;
+    intDNode *vp;
+    intDNode *vpTemp;
 
-    vp = fIntDNodeCreate (value);
+    vp = funcintDNodeCreate (value);
     if ( (*pintDList).length==0 )
     {
         (*pintDList).H = vp;
@@ -155,12 +170,13 @@ void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
 */
 
 /*
-void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
+void funcintDNodeInsertEnd (intDList *pintDList, int value)
 {
 
-    struct intDNode *vp = fIntDNodeCreate(value);
-    struct intDNode *vpTemp = (*pintDList).T;
+    intDNode *vp;
+    intDNode *vpTemp;
 
+    vp = funcintDNodeCreate(value);
     if ( (*pintDList).length==0 )
     {
         (*pintDList).H = vp;
@@ -168,7 +184,7 @@ void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
     }
     else
     {
-        vpTemp = (*pintDList).H;
+        vpTemp = (*pintDList).T;
         (*pintDList).T = vp;
 
         (*pintDList).T->Previous = vpTemp;
@@ -181,13 +197,13 @@ void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
 }
 */
 
-void fIntDNodeFreebyIndex (struct intDList *pintDList, int index)
+void funcintDNodeRemove (intDList *pintDList, int index)
 {
 
 
     int viCn = 0;
-    struct intDNode *vpCn;
-    struct intDNode *vpTemp;
+    intDNode *vpCn;
+    intDNode *vpTemp;
 
 
     if ( index<0 )
@@ -272,21 +288,21 @@ void fIntDNodeFreebyIndex (struct intDList *pintDList, int index)
     (*pintDList).length--;
 }
 
-void fIntDNodeFreeatBegin (struct intDList *pintDList)
+void funcintDNodeRemoveBegin (intDList *pintDList)
 {
-    fIntDNodeFreebyIndex (&(*pintDList), 0);
+    funcintDNodeRemove (&(*pintDList), 0);
 }
 
-void fIntDNodeFreeatEnd (struct intDList *pintDList)
+void funcintDNodeRemoveEnd (intDList *pintDList)
 {
-    fIntDNodeFreebyIndex (&(*pintDList), (*pintDList).length-1);
+    funcintDNodeRemove (&(*pintDList), (*pintDList).length-1);
 }
 
 /*
-void fIntDNodeFreeatBegin (struct intDList *pintDList)
+void funcintDNodeRemoveBegin (intDList *pintDList)
 {
     
-    struct intDNode *vpTemp;
+    intDNode *vpTemp;
 
     if ( (*pintDList).length==0 )
     {
@@ -311,10 +327,10 @@ void fIntDNodeFreeatBegin (struct intDList *pintDList)
 */
 
 /*
-void fINtDNodeFreeatEnd (struct intDList *pintDList)
+void funcintDNodeRemoveEnd (intDList *pintDList)
 {
     
-    struct intDNode *vpTemp;
+    intDNode *vpTemp;
     
 
     if ( (*pintDList).length==0 )
@@ -337,22 +353,22 @@ void fINtDNodeFreeatEnd (struct intDList *pintDList)
 }
 */
 
-void fIntDNodeFreeAll (struct intDList *pintDList)
+void funcintDNodeRemoveAll (struct intDList *pintDList)
 {
 
     while ( (*pintDList).length>0 )
     {
-        fIntDNodeFreebyIndex(&(*pintDList), 0);
+        funcintDNodeRemove (&(*pintDList), 0);
     }
 }
 
 /*
-void fIntDNodeFreeAll (struct intDList *pintDList)
+void funcintDNodeRemoveAll (intDList *pintDList)
 {
 
 
-    struct intDNode *vpCn;
-    struct intDNode *vpTemp;
+    intDNode *vpCn;
+    intDNode *vpTemp;
 
 
     vpCn = (*pintDList).H;
@@ -375,10 +391,10 @@ void fIntDNodeFreeAll (struct intDList *pintDList)
 }
 */
 
-void fIntDListDisplay (struct intDList intDList)
+void funcintDListDisplay (intDList intDList)
 {
 
-    struct intDNode *vpCn = intDList.H;
+    intDNode *vpCn = intDList.H;
     int viCn = 1;
 
     if ( vpCn==NULL )
@@ -396,10 +412,10 @@ void fIntDListDisplay (struct intDList intDList)
     }
 }
 
-void fIntDListDisplayReversed (struct intDList intDList)
+void funcintDListDisplayReversed (intDList intDList)
 {
 
-    struct intDNode *vpCn=intDList.T;
+    intDNode *vpCn=intDList.T;
     int viCn = 1;
 
     if ( vpCn==NULL )
@@ -421,7 +437,7 @@ void fIntDListDisplayReversed (struct intDList intDList)
 
 
 
-int fQuerryInt ()
+int funcQuerryInt ()
 {
 
     int viNum1;
@@ -431,27 +447,27 @@ int fQuerryInt ()
     return viNum1;
 }
 
-void fIntDListCreateFIFO (struct intDList *pintDList, int DListSize)
+void funcintDListCreateFIFO (intDList *pintDList, int DListSize)
 {
 
     int viValue;
     int viCn;
     for ( viCn=0; viCn<DListSize; viCn++ )
     {
-        viValue = fQuerryInt ();
-        fIntDNodeAddatEnd (&(*pintDList), viValue);
+        viValue = funcQuerryInt ();
+        funcintDNodeInsertEnd (&(*pintDList), viValue);
     }
 }
 
-void fIntDListCreateLIFO (struct intDList *pintDList, int DListSize)
+void funcintDListCreateLIFO (intDList *pintDList, int DListSize)
 {
 
     int viValue;
     int viCn;
     for ( viCn=0; viCn<DListSize; viCn++)
     {
-        viValue = fQuerryInt ();
-        fIntDNodeAddatBegin (&(*pintDList), viValue);
+        viValue = funcQuerryInt ();
+        funcintDNodeInsertBegin (&(*pintDList), viValue);
     }
 }
 
@@ -467,53 +483,53 @@ int main ()
 
 
 
-    struct intDList dliList1;
-    fIntDListInit (&dliList1);
+    intDList dliList1;
+    funcintDListInit (&dliList1);
 
 
 
     printf ("\n");
-    fIntDListCreateFIFO (&dliList1, 5);
+    funcintDListCreateFIFO (&dliList1, 5);
     printf ("\n\n");
     
     printf ("Displaying the DList:\n");
-    fIntDListDisplay (dliList1);
+    funcintDListDisplay (dliList1);
     printf ("\n\n");
     
     printf ("Displaying the DList in reversed:\n");
-    fIntDListDisplayReversed (dliList1);
+    funcintDListDisplayReversed (dliList1);
     printf ("\n\n");
 
     printf ("adding by index:\n");
-    fIntDNodeAddbyIndex (&dliList1, 0, 0);
-    fIntDNodeAddbyIndex (&dliList1, 1, 1);
+    funcintDNodeInsert (&dliList1, 0, 0);
+    funcintDNodeInsert (&dliList1, 1, 1);
     printf ("\n\n");
     
     printf ("Displaying the DList:\n");
-    fIntDListDisplay (dliList1);
+    funcintDListDisplay (dliList1);
     printf ("\n\n");
 
     printf ("Displaying the DList in reversed:\n");
-    fIntDListDisplayReversed (dliList1);
+    funcintDListDisplayReversed (dliList1);
     printf ("\n\n");
 
     printf ("Removing by index:\n");
-    fIntDNodeFreebyIndex (&dliList1, 0);
-    fIntDNodeFreebyIndex (&dliList1, 0);
+    funcintDNodeRemove (&dliList1, 0);
+    funcintDNodeRemove (&dliList1, 0);
     printf ("\n\n");
 
     printf ("Displaying the DList:\n");
-    fIntDListDisplay (dliList1);
+    funcintDListDisplay (dliList1);
     printf ("\n\n");
     
 
 
     printf ("Removing all DNodes:\n");
-    fIntDNodeFreeAll (&dliList1);
+    funcintDNodeRemoveAll (&dliList1);
     printf ("\n\n");
 
     printf ("Displaying the DList:\n");
-    fIntDListDisplay (dliList1);
+    funcintDListDisplay (dliList1);
     printf ("\n\n");
 
 
