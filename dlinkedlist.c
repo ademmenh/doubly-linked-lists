@@ -41,7 +41,7 @@ void funcintDNodeFree (intDNode *pintDNode)
     (*pintDNode).Next = NULL;
     (*pintDNode).Previous = NULL;
     (*pintDNode).Value = 0;
-    free (pintDNode); // free (&(*pintDNode));
+    free (pintDNode);   // free (&(*pintDNode));
 }
 
 
@@ -160,7 +160,7 @@ void funcintDNodeInsertBegin (intDList *pintDList, int value)
         (*pintDList).H = vp;
 
         (*pintDList).H->Next = vpTemp;
-        vpTemp->Previous = vp;
+        vpTemp->Previous = (*pintDList).H;
     }
 
 
@@ -223,14 +223,10 @@ void funcintDNodeRemove (intDList *pintDList, int index)
     if ( (*pintDList).length==1 )
     {
         vpTemp = (*pintDList).H;
-
-        vpTemp->Next = NULL;
-        vpTemp->Previous = NULL;
-        vpTemp->Value=0;
-        free (vpTemp);
-
         (*pintDList).H = NULL;
         (*pintDList).T = NULL;
+
+        funcintDNodeFree (vpTemp);
     }
     else
     {
@@ -238,24 +234,18 @@ void funcintDNodeRemove (intDList *pintDList, int index)
         {
             vpTemp = (*pintDList).H;
             (*pintDList).H = (*pintDList).H->Next;
-            vpTemp->Next->Previous = NULL;
 
-            vpTemp->Next = NULL;
-            vpTemp->Previous = NULL;
-            vpTemp->Value = 0;
-            free(vpTemp);
+            (*pintDList).H->Previous = NULL;
+            funcintDNodeFree (vpTemp);
         }
         else if ( index==(*pintDList).length-1 )
         {
 
             vpTemp = (*pintDList).T;
             (*pintDList).T = (*pintDList).T->Previous;
-            vpTemp->Previous->Next = NULL;
 
-            vpTemp->Next = NULL;
-            vpTemp->Previous = NULL;
-            vpTemp->Value = 0;
-            free (vpTemp);
+            (*pintDList).T->Next = NULL;
+            funcintDNodeFree (vpTemp);
         }
         else
         {
@@ -266,13 +256,11 @@ void funcintDNodeRemove (intDList *pintDList, int index)
                 if ( viCn==index )
                 {
                     vpTemp = vpCn;
+
                     vpTemp->Previous->Next = vpTemp->Next;
                     vpTemp->Next->Previous = vpTemp->Previous;
                     
-                    vpTemp->Next=NULL;
-                    vpTemp->Previous=NULL;
-                    vpTemp->Value=0;
-                    free (vpTemp);
+                    funcintDNodeFree (vpTemp);
                     break;
                 }
                 
@@ -314,12 +302,8 @@ void funcintDNodeRemoveBegin (intDList *pintDList)
     vpTemp = (*pintDList).H;
     (*pintDList).H = (*pintDList).H->Next;
 
-    (*pintDList).H->Previous = NULL;    
-
-    vpTemp->Next = NULL;
-    vpTemp->Previous = NULL;
-    vpTemp->Value = 0;
-    free (vpTemp);
+    (*pintDList).H->Previous = NULL;
+    funcintDNodeFree (vpTemp);
 
 
     (*pintDList).length--;
@@ -343,11 +327,9 @@ void funcintDNodeRemoveEnd (intDList *pintDList)
     (*pintDList).T = (*pintDList).T->Previous;
 
     (*pintDList).T->Next = NULL;
+    funcintDNodeFree (vpTemp);
 
-    vpTemp->Next = NULL;
-    vpTemp->Previous = NULL;
-    vpTemp->Value = 0;
-    free (vpTemp);
+
 
     (*pintDList).length--;
 }
@@ -375,13 +357,9 @@ void funcintDNodeRemoveAll (intDList *pintDList)
     while ( vpCn!=NULL )
     {
         vpTemp = vpCn;
-
-        vpTemp->Next = NULL;
-        vpTemp->Previous = NULL;
-        vpTemp->Value = 0;
-        free (vpTemp);
-        
         vpCn = vpCn->Next;
+
+        funcintDNodeFree (vpTemp);
     }
 
 
