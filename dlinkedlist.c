@@ -52,7 +52,7 @@ void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
 
 
 
-    if ( (*pintDList).length-1<index )
+    if ( (*pintDList).length<index )
     {
         printf ("The index is bigger than the length of DList !!!");
         return;
@@ -74,7 +74,7 @@ void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
             (*pintDList).H->Previous = vp;
             (*pintDList).H = vp;
         }
-        else if ( index==(*pintDList).length-1 )
+        else if ( index==(*pintDList).length )
         {
             vp->Previous = (*pintDList).T;
             (*pintDList).T->Next = vp;
@@ -82,9 +82,10 @@ void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
         }
         else
         {
+            // requires fixing
             while ( vpCn!=NULL )
             {
-                if ( viCn == index)
+                if ( viCn==index )
                 {
                     vp->Next = vpCn;
                     vp->Previous = vpCn->Previous;
@@ -99,6 +100,8 @@ void fIntDNodeAddbyIndex (struct intDList *pintDList, int index, int value)
     }
 
 
+
+    (*pintDList).length++;
 }
 
 void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
@@ -108,7 +111,7 @@ void fIntDNodeAddatBegin (struct intDList *pintDList, int value)
 
 void fIntDNodeAddatEnd (struct intDList *pintDList, int value)
 {
-    fIntDNodeAddbyIndex (&(*pintDList), (*pintDList).length-1, value);
+    fIntDNodeAddbyIndex (&(*pintDList), (*pintDList).length, value);
 }
 
 /*
@@ -167,7 +170,6 @@ void fIntDNodeFreebyIndex (struct intDList *pintDList, int index)
 
     int viCn = 0;
     struct intDNode *vpCn = (*pintDList).H;
-    struct intDNode *vpFound = (*pintDList).H;;
 
 
     if ( (*pintDList).length-1<index )
@@ -243,20 +245,17 @@ void fIntDNodeFreebyIndex (struct intDList *pintDList, int index)
     (*pintDList).length--;
 }
 
-/*
 void fIntDNodeFreeatBegin (struct intDList *pintDList)
 {
     fIntDNodeFreebyIndex (&(*pintDList), 0);
 }
-*/
 
-/*
 void fIntDNodeFreeatEnd (struct intDList *pintDList)
 {
     fIntDNodeFreebyIndex (&(*pintDList), (*pintDList).length-1);
 }
-*/
 
+/*
 void fIntDNodeFreeatBegin (struct intDList *pintDList)
 {
     
@@ -276,9 +275,12 @@ void fIntDNodeFreeatBegin (struct intDList *pintDList)
     vpTemp->Value = 0;
     free (vpTemp);
 
+
     (*pintDList).length--;
 }
+*/
 
+/*
 void fINtDNodeFreeatEnd (struct intDList *pintDList)
 {
     
@@ -298,9 +300,10 @@ void fINtDNodeFreeatEnd (struct intDList *pintDList)
     vpTemp->Value = 0;
     free (vpTemp);
 
+
     (*pintDList).length--;
 }
-
+*/
 
 void fIntDNodeFreeAll (struct intDList *pintDList)
 {
@@ -448,8 +451,8 @@ int main ()
     printf ("\n\n");
 
     printf ("adding by index:\n");
-    fIntDNodeAddbyIndex (&dliList1, 0, 1);
-    fIntDNodeAddbyIndex (&dliList1, dliList1.length-1, dliList1.length+2);
+    fIntDNodeAddbyIndex (&dliList1, 0, 0);
+    fIntDNodeAddbyIndex (&dliList1, 1, 1);
     printf ("\n\n");
     
     printf ("Displaying the DList:\n");
