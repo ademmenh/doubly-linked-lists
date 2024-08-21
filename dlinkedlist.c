@@ -57,7 +57,7 @@ intDNode* funcintDNodeCreate (int value)
     return vp;
 }
 
-void funcintDNodeInsert (intDList *pintDList, int index, int value)
+void funcintDListInsert (intDList *pintDList, int index, int value)
 {
     
     intDNode *vp;
@@ -131,18 +131,18 @@ void funcintDNodeInsert (intDList *pintDList, int index, int value)
     (*pintDList).length++;
 }
 
-void funcintDNodeInsertBegin (intDList *pintDList, int value)
+void funcintDListInsertBegin (intDList *pintDList, int value)
 {
-    funcintDNodeInsert (&(*pintDList), 0, value);
+    funcintDListInsert (&(*pintDList), 0, value);
 }
 
-void funcintDNodeInsertEnd (intDList *pintDList, int value)
+void funcintDListInsertEnd (intDList *pintDList, int value)
 {
-    funcintDNodeInsert (&(*pintDList), (*pintDList).length, value);
+    funcintDListInsert (&(*pintDList), (*pintDList).length, value);
 }
 
 /*
-void funcintDNodeInsertBegin (intDList *pintDList, int value)
+void funcintDListInsertBegin (intDList *pintDList, int value)
 {
 
     intDNode *vp;
@@ -170,7 +170,7 @@ void funcintDNodeInsertBegin (intDList *pintDList, int value)
 */
 
 /*
-void funcintDNodeInsertEnd (intDList *pintDList, int value)
+void funcintDListInsertEnd (intDList *pintDList, int value)
 {
 
     intDNode *vp;
@@ -199,7 +199,7 @@ void funcintDNodeInsertEnd (intDList *pintDList, int value)
 
 
 
-int funcintDNodeat (intDList pintDList, int index)
+int funcintDListat (intDList pintDList, int index)
 {
     intDNode *vpCn;
     int viCn;
@@ -287,7 +287,7 @@ void funcintDNodeModify (intDList *pintDList, int index, int value)
 
 
 
-void funcintDNodeRemove (intDList *pintDList, int index)
+void funcintDListRemove (intDList *pintDList, int index)
 {
 
 
@@ -366,18 +366,18 @@ void funcintDNodeRemove (intDList *pintDList, int index)
     (*pintDList).length--;
 }
 
-void funcintDNodeRemoveBegin (intDList *pintDList)
+void funcintDListRemoveBegin (intDList *pintDList)
 {
     funcintDNodeRemove (&(*pintDList), 0);
 }
 
-void funcintDNodeRemoveEnd (intDList *pintDList)
+void funcintDListRemoveEnd (intDList *pintDList)
 {
     funcintDNodeRemove (&(*pintDList), (*pintDList).length-1);
 }
 
 /*
-void funcintDNodeRemoveBegin (intDList *pintDList)
+void funcintDListRemoveBegin (intDList *pintDList)
 {
     
     intDNode *vpTemp;
@@ -401,7 +401,7 @@ void funcintDNodeRemoveBegin (intDList *pintDList)
 */
 
 /*
-void funcintDNodeRemoveEnd (intDList *pintDList)
+void funcintDListRemoveEnd (intDList *pintDList)
 {
     
     intDNode *vpTemp;
@@ -425,7 +425,7 @@ void funcintDNodeRemoveEnd (intDList *pintDList)
 }
 */
 
-void funcintDNodeRemoveAll (struct intDList *pintDList)
+void funcintDListClear (intDList *pintDList)
 {
 
     while ( (*pintDList).length>0 )
@@ -435,7 +435,7 @@ void funcintDNodeRemoveAll (struct intDList *pintDList)
 }
 
 /*
-void funcintDNodeRemoveAll (intDList *pintDList)
+void funcintDListClear (intDList *pintDList)
 {
 
 
@@ -503,7 +503,7 @@ void funcintDListDisplayReversed (intDList intDList)
     }
 }
 
-
+// void funcintDListsort ()
 
 
 
@@ -575,8 +575,8 @@ int main ()
 
 
     printf ("adding by index:\n");
-    funcintDNodeInsert (&dliList1, 0, 0);
-    funcintDNodeInsert (&dliList1, 1, 1);
+    funcintDListInsert (&dliList1, 0, 0);
+    funcintDListInsert (&dliList1, 1, 1);
     printf ("\n\n");
     
 
@@ -601,8 +601,8 @@ int main ()
 
 
     printf ("Modify at:");
-    funcintDNodeModify (&dliList1, -1, 101);
-    funcintDNodeModify (&dliList1, -2, 100);
+    funcintDListModify (&dliList1, -1, 101);
+    funcintDListModify (&dliList1, -2, 100);
     printf ("\n\n");
 
 
@@ -614,8 +614,8 @@ int main ()
 
 
     printf ("Removing by index:\n");
-    funcintDNodeRemove (&dliList1, 0);
-    funcintDNodeRemove (&dliList1, 0);
+    funcintDListRemove (&dliList1, 0);
+    funcintDListRemove (&dliList1, 0);
     printf ("\n\n");
 
 
@@ -627,7 +627,7 @@ int main ()
 
 
     printf ("Removing all DNodes:\n");
-    funcintDNodeRemoveAll (&dliList1);
+    funcintDListatClear (&dliList1);
     printf ("\n\n");
 
 
@@ -639,8 +639,8 @@ int main ()
 
 
     printf ("adding by index:\n");
-    funcintDNodeInsert (&dliList1, 0, 0);
-    funcintDNodeInsert (&dliList1, 1, 1);
+    funcintDListInsert (&dliList1, 0, 0);
+    funcintDListInsert (&dliList1, 1, 1);
     printf ("\n\n");
 
 
