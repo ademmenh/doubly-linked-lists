@@ -243,7 +243,7 @@ int funcintDListat (intDList pintDList, int index)
 
 
 
-void funcintDNodeModify (intDList *pintDList, int index, int value)
+void funcintDListModify (intDList *pintDList, int index, int value)
 {
     intDNode *vpCn;
     int viCn;
@@ -368,12 +368,12 @@ void funcintDListRemove (intDList *pintDList, int index)
 
 void funcintDListRemoveBegin (intDList *pintDList)
 {
-    funcintDNodeRemove (&(*pintDList), 0);
+    funcintDListRemove (&(*pintDList), 0);
 }
 
 void funcintDListRemoveEnd (intDList *pintDList)
 {
-    funcintDNodeRemove (&(*pintDList), (*pintDList).length-1);
+    funcintDListRemove (&(*pintDList), (*pintDList).length-1);
 }
 
 /*
@@ -430,7 +430,7 @@ void funcintDListClear (intDList *pintDList)
 
     while ( (*pintDList).length>0 )
     {
-        funcintDNodeRemove (&(*pintDList), 0);
+        funcintDListRemove (&(*pintDList), 0);
     }
 }
 
@@ -525,7 +525,7 @@ void funcintDListCreateFIFO (intDList *pintDList, int DListSize)
     for ( viCn=0; viCn<DListSize; viCn++ )
     {
         viValue = funcQuerryInt ();
-        funcintDNodeInsertEnd (&(*pintDList), viValue);
+        funcintDListInsertEnd (&(*pintDList), viValue);
     }
 }
 
@@ -537,7 +537,7 @@ void funcintDListCreateLIFO (intDList *pintDList, int DListSize)
     for ( viCn=0; viCn<DListSize; viCn++)
     {
         viValue = funcQuerryInt ();
-        funcintDNodeInsertBegin (&(*pintDList), viValue);
+        funcintDListInsertBegin (&(*pintDList), viValue);
     }
 }
 
@@ -594,8 +594,8 @@ int main ()
 
 
     printf ("Display at:");
-    printf ("the value at index 0 is: %d.\n", funcintDNodeat (dliList1, 0));
-    printf ("the value at index -1 is: %d.\n", funcintDNodeat (dliList1, -1));
+    printf ("the value at index 0 is: %d.\n", funcintDListat (dliList1, 0));
+    printf ("the value at index -1 is: %d.\n", funcintDListat (dliList1, -1));
     printf ("\n\n");
 
 
@@ -627,7 +627,7 @@ int main ()
 
 
     printf ("Removing all DNodes:\n");
-    funcintDListatClear (&dliList1);
+    funcintDListClear (&dliList1);
     printf ("\n\n");
 
 
