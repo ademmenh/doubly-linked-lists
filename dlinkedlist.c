@@ -29,6 +29,17 @@ void funcintDNodeInit (intDNode *pintDNode)
     (*pintDNode).Previous = NULL;
 }
 
+intDNode* funcintDNodeCreate (int value)
+{
+
+    intDNode *vp = (struct intDNode *) malloc(sizeof(struct intDNode));
+    funcintDNodeInit (vp);
+
+    vp->Value = value;
+
+    return vp;
+}
+
 intDNode* funcintDNodePointer (intDList intDList, int index)
 {
 
@@ -74,17 +85,6 @@ intDNode* funcintDNodePointer (intDList intDList, int index)
         }
     }
 
-}
-
-intDNode* funcintDNodeCreate (int value)
-{
-
-    intDNode *vp = (struct intDNode *) malloc(sizeof(struct intDNode));
-    funcintDNodeInit (vp);
-
-    vp->Value = value;
-
-    return vp;
 }
 
 void funcintDNodeFree (intDNode *pintDNode)
@@ -365,6 +365,7 @@ void funcintDListModify (intDList *pintDList, int index, int value)
 }
 */
 
+/*
 void funcintDListRemove (intDList *pintDList, int index)
 {
 
@@ -443,6 +444,7 @@ void funcintDListRemove (intDList *pintDList, int index)
 
     (*pintDList).length--;
 }
+*/
 
 void funcintDListRemoveBegin (intDList *pintDList)
 {
@@ -537,7 +539,10 @@ void funcintDListClear (intDList *pintDList)
 }
 */
 
-// void funcintDListsort ()
+void funcintDListsort (intDList *pintDList)
+{
+    
+}
 
 
 
@@ -665,6 +670,7 @@ void funcintDListDisplayReversed (intDList intDList)
 
 }
 */
+
 
 
 int main ()
