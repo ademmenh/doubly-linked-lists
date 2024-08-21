@@ -537,50 +537,6 @@ void funcintDListClear (intDList *pintDList)
 }
 */
 
-
-
-void funcintDListDisplay (intDList intDList)
-{
-
-    intDNode *vpCn = intDList.H;
-    int viCn = 0;
-
-    if ( vpCn==NULL )
-    {
-        printf ("The DList is Empty !!!\n");
-    }
-    else
-    {
-        while (vpCn!=NULL)
-        {
-            printf ("The value n %d is: %d.\n", viCn, vpCn->Value);
-            vpCn = vpCn->Next;
-            viCn++;
-        }
-    }
-}
-
-void funcintDListDisplayReversed (intDList intDList)
-{
-
-    intDNode *vpCn=intDList.T;
-    int viCn = 0;
-
-    if ( vpCn==NULL )
-    {
-        printf ("The Dlist is empty !!!\n");
-    }
-    else
-    {
-        while ( vpCn!=NULL )
-        {
-            printf ("The value n %d is: %d.\n", viCn, vpCn->Value);
-            vpCn = vpCn->Previous;
-            viCn++;
-        }
-    }
-}
-
 // void funcintDListsort ()
 
 
@@ -619,6 +575,96 @@ void funcintDListCreateLIFO (intDList *pintDList, int DListSize)
     }
 }
 
+void funcintDListDisplay (intDList intDList)
+{
+
+    intDNode *vpCn;
+    int viCn;
+
+    if ( vpCn==NULL )
+    {
+        printf ("The DList is Empty !!!\n");
+        return;
+    }
+    
+    vpCn = intDList.H;
+    viCn = 0;
+    while (vpCn!=NULL)
+    {
+        printf ("The value n %d is: %d.\n", viCn, vpCn->Value);
+        vpCn = vpCn->Next;
+        viCn++;
+    }
+    
+}
+
+/*
+void funcintDListDisplay (intDList intDList)
+{
+
+    intDNode *vpCn;
+    int viCn;
+
+    if ( intDList.length == 0 )
+    {
+        printf ("The DList is empty !!!");
+        return;
+    }
+
+    vpCn = intDList.H;
+    for ( viCn=0; viCn<intDList.length; viCn++ )
+    {
+        printf ("The value %d is: %d.\n", viCn, vpCn->Value);
+        vpCn = vpCn->Next;
+    }
+}
+*/
+
+void funcintDListDisplayReversed (intDList intDList)
+{
+
+    intDNode *vpCn;
+    int viCn;
+
+    if ( vpCn==NULL )
+    {
+        printf ("The Dlist is empty !!!\n");
+        return;
+    }
+    
+    
+    vpCn = intDList.T;
+    viCn = 0;
+    while ( vpCn!=NULL )
+    {
+        printf ("The value n %d is: %d.\n", viCn, vpCn->Value);
+        vpCn = vpCn->Previous;
+        viCn++;
+    }
+}
+
+/*
+void funcintDListDisplayReversed (intDList intDList)
+{
+    intDNode *vpCn;
+    int viCn;
+
+    if ( intDList.length == 0 )
+    {
+        printf ("The DList is Empty !!!");
+        return;
+    }
+
+    vpCn = intDList.H;
+    for ( viCn=0; viCn<intDList.length; viCn++ )
+    {
+        printf ("The value n %d is: %d.\n", viCn, vpCn->Value);
+        vpCn = vpCn->Next;
+    }
+
+
+}
+*/
 
 
 int main ()
