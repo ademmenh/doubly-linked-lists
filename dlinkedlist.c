@@ -469,11 +469,23 @@ void funcintDListRemoveBegin (intDList *pintDList)
     }
 
 
-    vpTemp = (*pintDList).H;
-    (*pintDList).H = (*pintDList).H->Next;
+    if ( (*pintDList).length==1 )
+    {
+        vpTemp = (*pintDList).H;
+        (*pintDList).H = NULL;
+        (*pintDList).T = NULL;
 
-    (*pintDList).H->Previous = NULL;
-    funcintDNodeFree (vpTemp);
+        functintDNodeFree (vpTemp);
+    }
+    else
+    {
+        vpTemp = (*pintDList).H;
+        (*pintDList).H = (*pintDList).H->Next;
+
+        (*pintDList).H->Previous = NULL;
+        funcintDNodeFree (vpTemp);    
+    }
+
 
 
     (*pintDList).length--;
@@ -492,12 +504,24 @@ void funcintDListRemoveEnd (intDList *pintDList)
         printf ("The DList is already empty !!!");
         return;
     }
-    
-    vpTemp = (*pintDList).T;
-    (*pintDList).T = (*pintDList).T->Previous;
 
-    (*pintDList).T->Next = NULL;
-    funcintDNodeFree (vpTemp);
+    if ( (*pintDList.length==1) )
+    {
+        vpTemp = (*pintDList).H;
+        (*pintDList).H = NULL;
+        (*pintDList).T = NULL;
+
+        funcintDNodeFree (vpTemp);
+    }
+    else
+    {
+        vpTemp = (*pintDList).T;
+        (*pintDList).T = (*pintDList).T->Previous;
+
+        (*pintDList).T->Next = NULL;
+        funcintDNodeFree (vpTemp);
+    }
+    
 
 
 
