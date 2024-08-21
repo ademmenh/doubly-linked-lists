@@ -199,20 +199,22 @@ void funcintDListInsertEnd (intDList *pintDList, int value)
 
 
 
-int funcintDListat (intDList pintDList, int index)
+int funcintDListat (intDList intDList, int index)
 {
+    
     intDNode *vpCn;
     int viCn;
 
+
     if ( 0<=index )
     {
-        if ( pintDList.length-1<index )
+        if ( intDList.length-1<index )
         {
             printf ("The index is out the range of the DList !!!");
             return;
         }
 
-        vpCn = pintDList.H;
+        vpCn = intDList.H;
         for ( viCn=0; viCn<index; viCn++ )
         {
             vpCn = vpCn->Next;
@@ -224,14 +226,14 @@ int funcintDListat (intDList pintDList, int index)
     {
         if ( index<0 )
         {
-            if ( pintDList.length<-index )
+            if ( intDList.length<-index )
             {
                 printf ("The index is out the range of the DList !!!");
                 return;
             }
         }
 
-        vpCn = pintDList.T;
+        vpCn = intDList.T;
         for ( viCn=-1; index<viCn; viCn--)
         {
             vpCn = vpCn->Previous;
@@ -240,6 +242,57 @@ int funcintDListat (intDList pintDList, int index)
         return vpCn->Value;
     }
 }
+
+intDNode* funcintDListPointer (intDList intDList, int index)
+{
+
+    intDNode *vpCn;
+    int viCn;
+
+
+    if ( 0<=index )
+    {
+        
+        if ( intDList.length-1<index )
+        {
+            printf ("The index is out the range of the DList !!!");
+            return;
+        }
+        else
+        {
+            vpCn = intDList.H;
+            for ( viCn=0; viCn<index; viCn++ )
+            {
+                vpCn = vpCn->Next;
+            }
+
+            return vpCn;
+        }
+    }
+    else
+    {
+        if ( intDList.length<-index )
+        {
+            printf ("The index is out the range of the DList !!!");
+            return;
+        }
+        else
+        {
+            vpCn = intDList.T;
+            for ( viCn=-1; index<viCn; viCn-- )
+            {
+                vpCn = vpCn->Previous;
+            }
+
+            return vpCn;
+        }
+    }
+
+}
+
+// int funcintDListindex
+
+// int funcintDListcount
 
 
 
