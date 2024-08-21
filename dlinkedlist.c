@@ -197,6 +197,48 @@ void funcintDNodeInsertEnd (intDList *pintDList, int value)
 }
 */
 
+int funcintDNodeat (intDList pintDList, int index)
+{
+    intDNode *vpCn;
+    int viCn;
+
+    if ( 0<=index )
+    {
+        if ( pintDList.length-1<index )
+        {
+            printf ("The index is out the range of the DList !!!");
+            return;
+        }
+
+        vpCn = pintDList.H;
+        for ( viCn=0; viCn<index; viCn++ )
+        {
+            vpCn = vpCn->Next;
+        }
+        
+        return vpCn->Value;
+    }
+    else
+    {
+        if ( index<0 )
+        {
+            if ( pintDList.length<-index )
+            {
+                printf ("The index is out the range of the DList !!!");
+                return;
+            }
+        }
+
+        vpCn = pintDList.T;
+        for ( viCn=-1; index<viCn; viCn--)
+        {
+            vpCn = vpCn->Previous;
+        }
+
+        return vpCn->Value;
+    }
+}
+
 void funcintDNodeRemove (intDList *pintDList, int index)
 {
 
@@ -473,7 +515,7 @@ int main ()
     printf ("Displaying the DList:\n");
     funcintDListDisplay (dliList1);
     printf ("\n\n");
-    
+
     printf ("Displaying the DList in reversed:\n");
     funcintDListDisplayReversed (dliList1);
     printf ("\n\n");
@@ -481,6 +523,13 @@ int main ()
     printf ("adding by index:\n");
     funcintDNodeInsert (&dliList1, 0, 0);
     funcintDNodeInsert (&dliList1, 1, 1);
+    printf ("\n\n");
+    
+    printf ("Display at:");
+    printf ("the value at index 0 is: %d.\n", funcintDNodeat (dliList1, 0));
+    printf ("the value at index 2 is: %d.\n", funcintDNodeat (dliList1, 2));
+    printf ("the value at index -1 is: %d.\n", funcintDNodeat (dliList1, -1));
+    printf ("the value at index -2 is: %d.\n", funcintDNodeat (dliList1, -2));
     printf ("\n\n");
     
     printf ("Displaying the DList:\n");
