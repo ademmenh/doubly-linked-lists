@@ -1,7 +1,7 @@
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-
 
 
 
@@ -29,7 +29,7 @@ void funcintDNodeInit (intDNode *pintDNode)
     (*pintDNode).Previous = NULL;
 }
 
-intDNode* funcintDListPointer (intDList intDList, int index)
+intDNode* funcintDNodePointer (intDList intDList, int index)
 {
 
     intDNode *vpCn;
@@ -290,7 +290,26 @@ int funcintDListat (intDList intDList, int index)
     }
 }
 
-// int funcintDListindex
+int funcintDListIndex (intDList intDList, int value)
+{
+
+    bool vbFound;
+    intDNode *vpCn;
+    int viCn;
+
+    vpCn = intDList.H;
+    for ( viCn=0; viCn<intDList.length; viCn++ )
+    {
+        if ( vpCn->Value == value )
+        {
+            return viCn;
+        }
+        
+        vpCn = vpCn->Next;
+    }
+
+    printf ("The Number %d do not exist in the DList !!!", value);
+}
 
 // int funcintDListcount
 
@@ -524,7 +543,7 @@ void funcintDListDisplay (intDList intDList)
 {
 
     intDNode *vpCn = intDList.H;
-    int viCn = 1;
+    int viCn = 0;
 
     if ( vpCn==NULL )
     {
@@ -545,7 +564,7 @@ void funcintDListDisplayReversed (intDList intDList)
 {
 
     intDNode *vpCn=intDList.T;
-    int viCn = 1;
+    int viCn = 0;
 
     if ( vpCn==NULL )
     {
@@ -652,16 +671,22 @@ int main ()
 
 
 
-    printf ("Display at:");
+    printf ("Display at:\n");
     printf ("the value at index 0 is: %d.\n", funcintDListat (dliList1, 0));
     printf ("the value at index -1 is: %d.\n", funcintDListat (dliList1, -1));
     printf ("\n\n");
 
 
 
+    printf ("Return the First Index: \n");
+    printf ("Number 4 first appeared at index: %d.\n", funcintDListIndex (dliList1, 4));
+    printf ("Number 6 first appeared at index: %d.\n", funcintDListIndex (dliList1, 6));
+    printf ("\n\n");
+
+
     printf ("Modify at:");
-    funcintDListModify (&dliList1, -1, 101);
-    funcintDListModify (&dliList1, -2, 100);
+    funcintDListModify (&dliList1, -1, 100);
+    funcintDListModify (&dliList1, -2, 101);
     printf ("\n\n");
 
 
