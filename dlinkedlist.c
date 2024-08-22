@@ -52,7 +52,7 @@ intDNode* funcintDNodePointer (intDList intDList, int index)
         if ( intDList.length-1<index )
         {
             printf ("The index is out the range of the DList !!!");
-            return;
+            exit (1);
         }
 
         vpCn = intDList.H;
@@ -68,7 +68,7 @@ intDNode* funcintDNodePointer (intDList intDList, int index)
         if ( intDList.length<-index )
         {
             printf ("The index is out the range of the DList !!!");
-            return;
+            exit (1);
         }
 
         vpCn = intDList.T;
@@ -325,7 +325,7 @@ int funcintDListat (intDList intDList, int index)
         if ( intDList.length-1<index )
         {
             printf ("The index is out the range of the DList !!!");
-            return;
+            exit (1);
         }
     }
     else
@@ -333,8 +333,7 @@ int funcintDListat (intDList intDList, int index)
         if ( intDList.length<-index )
         {
             printf ("The index is out the range of the DList !!!");
-            return;
-        
+            exit (1);
         }
     }
 
@@ -363,6 +362,7 @@ int funcintDListIndex (intDList intDList, int value)
     }
 
     printf ("The Number %d do not exist in the DList !!!", value);
+    exit(1);
 }
 
 // int funcintDListcount
@@ -382,15 +382,7 @@ void funcintDListRemove (intDList *pintDList, int index)
 
 
 
-    if ( (*pintDList).length==0 )
-    {
-        printf ("The DList is empty !!!");
-        return;
-    }
-
-
-
-    vp = funcintDNodePointer ((*pintDList), index);
+    vp = funcintDNodePointer (*pintDList, index);
     if ( (*pintDList).length==1 )
     {
 
