@@ -347,7 +347,26 @@ int funcintDListIndex (intDList intDList, int value)
     exit(1);
 }
 
-// int funcintDListcount
+int funcintDListcount (intDList intDList, int value)
+{
+    
+    intDNode *vpCn = intDList.H;
+    int viFound = 0;
+
+
+
+    while ( vpCn!=NULL )
+    {
+        if ( value==vpCn->Value )
+        {
+            viFound ++;
+        }
+
+        vpCn = vpCn->Next;
+    }
+
+    return 0;
+}
 
 void funcintDListModify (intDList *pintDList, int index, int value)
 {
