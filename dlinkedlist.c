@@ -40,8 +40,40 @@ intDNode* funcintDNodeCreate (int value)
     return vp;
 }
 
-
 intDNode* funcintDNodePointer (intDList intDList, int index)
+{
+
+    intDNode *vpCn;
+    int viCn;
+
+
+    if ( 0<=index )
+    {
+
+        vpCn = intDList.H;
+        for ( viCn=0; viCn<index; viCn++ )
+        {
+            vpCn = vpCn->Next;
+        }
+
+        return vpCn;
+    }
+    else
+    {
+
+        vpCn = intDList.T;
+        for ( viCn=-1; index<viCn; viCn-- )
+        {
+            vpCn = vpCn->Previous;
+        }
+
+        return vpCn;
+    }
+
+}
+
+/*
+intDNode* funcintDNodePointerTesting (intDList intDList, int index)
 {
 
     intDNode *vpCn;
@@ -87,6 +119,7 @@ intDNode* funcintDNodePointer (intDList intDList, int index)
     }
 
 }
+*/
 
 void funcintDNodeFree (intDNode *pintDNode)
 {
