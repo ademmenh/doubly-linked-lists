@@ -49,6 +49,11 @@ intDNode* funcintDNodePointer (intDList intDList, int index)
 
     if ( 0<=index )
     {
+        if ( intDList.length-1<index )
+        {
+            printf ("The index is out the range of the DList !!!");
+            return;
+        }
 
         vpCn = intDList.H;
         for ( viCn=0; viCn<index; viCn++ )
@@ -60,6 +65,11 @@ intDNode* funcintDNodePointer (intDList intDList, int index)
     }
     else
     {
+        if ( intDList.length<-index )
+        {
+            printf ("The index is out the range of the DList !!!");
+            return;
+        }
 
         vpCn = intDList.T;
         for ( viCn=-1; index<viCn; viCn-- )
@@ -69,7 +79,6 @@ intDNode* funcintDNodePointer (intDList intDList, int index)
 
         return vpCn;
     }
-
 }
 
 /*
@@ -138,41 +147,31 @@ void funcintDListInit (intDList *pintDList)
     pintDList->length = 0;
 }
 
+// do not have a dependency
 void funcintDListInsert (intDList *pintDList, int index, int value)
 {
-    
-    intDNode *vp;
-    intDNode *vpCn = (*pintDList).H;
+
+    intDNode *vpNew;
     intDNode *vpTemp;
-    int viCn = 0;
+    intDNode *vpCn;
+    int viCn;
 
 
-    if ( index<0)
+
+    vpNew = funcintDNodeCreate (value);
+    if ( 0<=index )
     {
-        printf ("The Index is negative !!!");
-        return;
-    }
-
-    if ( (*pintDList).length<index )
-    {
-        printf ("The index is bigger than the length of DList !!!");
-        return;
-    }
+        if ( (*pintDList).length<index )
+        {
+            printf ("The index is out the range of the DList !!!");
+            exit (1);
+        }
 
 
-    vp = funcintDNodeCreate (value);
-
-    if ( (*pintDList).length==0 ) 
-    {
-        (*pintDList).H = vp;
-        (*pintDList).T = vp;
-    }
-    else
-    {
         if ( index==0 )
         {
             vpTemp = (*pintDList).H;
-            (*pintDList).H = vp;
+            (*pintDList).H = vpNew;
 
             (*pintDList).H->Next = vpTemp;
             vpTemp->Previous = (*pintDList).H;
@@ -180,30 +179,65 @@ void funcintDListInsert (intDList *pintDList, int index, int value)
         else if ( index==(*pintDList).length )
         {
             vpTemp = (*pintDList).T;
-            (*pintDList).T = vp;
+            (*pintDList).T = vpNew;
 
             (*pintDList).T->Previous = vpTemp;
             vpTemp->Next = (*pintDList).T;
         }
         else
         {
-            while ( vpCn!=NULL )
+            vpNew = funcintDNodeCreate (value);
+            vpCn = (*pintDList).H;
+            for ( viCn=0; viCn<index; viCn++ )
             {
-                if ( viCn==index )
-                {
-                    vpTemp = vpCn;
-
-                    vp->Next = vpTemp;
-                    vp->Previous = vpTemp->Previous;
-
-                    vpTemp->Previous->Next=vp;
-                    vpTemp->Previous = vp;
-                    break;
-                }
-
                 vpCn = vpCn->Next;
-                viCn++;
             }
+            vpTemp = vpCn;
+            
+            vpTemp->Previous->Next = vpTemp->Next;
+            vpTemp->Next->Previous = vpTemp->Previous;
+            funcintDNodeFree (vpTemp);
+        }
+    }
+    else
+    {
+        if ( (*pintDList).length+1<-index )
+        {
+            printf ("The index is out the range of the DList !!!");
+            exit (1);
+        }
+
+
+
+        if ( index==-1 )
+        {
+            vpTemp = (*pintDList).H;
+            (*pintDList).H = vpNew;
+
+            (*pintDList).H->Next = vpTemp;
+            vpTemp->Previous = (*pintDList).H;
+        }
+        else if ( index==-(*pintDList).length-1 )
+        {
+            vpTemp = (*pintDList).T;
+            (*pintDList).T = vpNew;
+
+            (*pintDList).T->Previous = vpTemp;
+            vpTemp->Next = (*pintDList).T;
+        }
+        else
+        {
+            vpNew = funcintDNodeCreate (value);
+            vpCn = (*pintDList).T;
+            for ( viCn=-1; index<viCn; viCn-- )
+            {
+                vpCn = vpCn->Previous;
+            }
+            vpTemp = vpCn;
+            
+            vpTemp->Previous->Next = vpTemp->Next;
+            vpTemp->Next->Previous = vpTemp->Previous;
+            funcintDNodeFree (vpTemp);
         }
     }
 
@@ -333,7 +367,6 @@ int funcintDListIndex (intDList intDList, int value)
 
 // int funcintDListcount
 
-
 void funcintDListModify (intDList *pintDList, int index, int value)
 {
     intDNode *vp = funcintDNodePointer (*pintDList, index);
@@ -348,23 +381,6 @@ void funcintDListRemove (intDList *pintDList, int index)
     intDNode *vpTemp;
 
 
-    if ( 0<=index )
-    {
-        if ( (*pintDList).length-1<index )
-        {
-            printf ("The index is out the range of the DList !!!");
-            return;
-        }
-    }
-    else
-    {
-        if ( (*pintDList).length<-index)
-        {
-            printf ("The index is out the range of the DList !!!");
-            return;
-        }
-    }
-
 
     if ( (*pintDList).length==0 )
     {
@@ -374,17 +390,19 @@ void funcintDListRemove (intDList *pintDList, int index)
 
 
 
+    vp = funcintDNodePointer ((*pintDList), index);
     if ( (*pintDList).length==1 )
     {
-        vp = (*pintDList).H;
+
+        vpTemp = vp;
+        vpTemp = (*pintDList).H;
         (*pintDList).H = NULL;
         (*pintDList).T = NULL;
 
-        funcintDNodeFree (vp);
+        funcintDNodeFree (vpTemp);
     }
     else
     {
-        vp = funcintDNodePointer ((*pintDList), index);
 
         if ( vp==(*pintDList).H )
         {
@@ -404,9 +422,11 @@ void funcintDListRemove (intDList *pintDList, int index)
         }
         else
         {
-            vp->Previous->Next = vp->Next;
-            vp->Next->Previous = vp->Previous;
-            funcintDNodeFree (vp);
+            vpTemp = vp;
+
+            vpTemp->Previous->Next = vpTemp->Next;
+            vpTemp->Next->Previous = vpTemp->Previous;
+            funcintDNodeFree (vpTemp);
         }
     }
 
