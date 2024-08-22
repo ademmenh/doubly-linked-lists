@@ -1,5 +1,4 @@
 
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -320,22 +319,6 @@ int funcintDListat (intDList intDList, int index)
     intDNode *vp;
     int viCn = 0;
 
-    if ( 0<=index )
-    {
-        if ( intDList.length-1<index )
-        {
-            printf ("The index is out the range of the DList !!!");
-            exit (1);
-        }
-    }
-    else
-    {
-        if ( intDList.length<-index )
-        {
-            printf ("The index is out the range of the DList !!!");
-            exit (1);
-        }
-    }
 
 
     vp = funcintDNodePointer (intDList, index);
@@ -346,7 +329,6 @@ int funcintDListat (intDList intDList, int index)
 int funcintDListIndex (intDList intDList, int value)
 {
 
-    bool vbFound;
     intDNode *vpCn;
     int viCn;
 
@@ -369,6 +351,7 @@ int funcintDListIndex (intDList intDList, int value)
 
 void funcintDListModify (intDList *pintDList, int index, int value)
 {
+
     intDNode *vp = funcintDNodePointer (*pintDList, index);
 
     vp->Value = value;
@@ -383,11 +366,12 @@ void funcintDListRemove (intDList *pintDList, int index)
 
 
     vp = funcintDNodePointer (*pintDList, index);
+
+
+
     if ( (*pintDList).length==1 )
     {
-
         vpTemp = vp;
-        vpTemp = (*pintDList).H;
         (*pintDList).H = NULL;
         (*pintDList).T = NULL;
 
@@ -395,7 +379,6 @@ void funcintDListRemove (intDList *pintDList, int index)
     }
     else
     {
-
         if ( vp==(*pintDList).H )
         {
             vpTemp = (*pintDList).H;
