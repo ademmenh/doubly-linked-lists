@@ -6,6 +6,7 @@
 
 
 
+
 typedef struct intDNode
 {
     int Value;
@@ -213,12 +214,12 @@ void funcintDListInsert (intDList *pintDList, int index, int value)
 
 void funcintDListInsertBegin (intDList *pintDList, int value)
 {
-    funcintDListInsert (&(*pintDList), 0, value);
+    funcintDListInsert (pintDList, 0, value);   //&(*pintDList)
 }
 
 void funcintDListInsertEnd (intDList *pintDList, int value)
 {
-    funcintDListInsert (&(*pintDList), (*pintDList).length, value);
+    funcintDListInsert (pintDList, pintDList->length, value);     // &(*pintDList), (*pintDList).length
 }
 
 /*
@@ -340,51 +341,6 @@ void funcintDListModify (intDList *pintDList, int index, int value)
     vp->Value = value;
 }
 
-/*
-void funcintDListModify (intDList *pintDList, int index, int value)
-{
-    intDNode *vpCn;
-    int viCn;
-
-    if ( 0<=index )
-    {
-        if ( (*pintDList).length-1<index )
-        {
-            printf ("The index is out the range of the DList !!!");
-            return;
-        }
-
-        vpCn = (*pintDList).H;
-        for ( viCn=0; viCn<index; viCn++ )
-        {
-            vpCn = vpCn->Next;
-        }
-        
-        vpCn->Value = value;
-    }
-    else
-    {
-        if ( index<0 )
-        {
-            if ( (*pintDList).length<-index )
-            {
-                printf ("The index is out the range of the DList !!!");
-                return;
-            }
-        }
-
-        vpCn = (*pintDList).T;
-        for ( viCn=-1; index<viCn; viCn--)
-        {
-            vpCn = vpCn->Previous;
-        }
-
-        vpCn->Value = value;
-    } 
-}
-*/
-
-
 void funcintDListRemove (intDList *pintDList, int index)
 {
 
@@ -463,12 +419,12 @@ void funcintDListRemove (intDList *pintDList, int index)
 
 void funcintDListRemoveBegin (intDList *pintDList)
 {
-    funcintDListRemove (&(*pintDList), 0);
+    funcintDListRemove (pintDList, 0);  // &(*pintDList)
 }
 
 void funcintDListRemoveEnd (intDList *pintDList)
 {
-    funcintDListRemove (&(*pintDList), (*pintDList).length-1);
+    funcintDListRemove (pintDList, pintDList->length-1);  // &(*pintDList), (*pintDList).length-1
 }
 
 /*
@@ -549,7 +505,7 @@ void funcintDListClear (intDList *pintDList)
 
     while ( (*pintDList).length>0 )
     {
-        funcintDListRemove (&(*pintDList), 0);
+        funcintDListRemove (pintDList, 0);  // &(*pintDList)
     }
 }
 
@@ -586,6 +542,8 @@ void funcintDListsort (intDList *pintDList)
 
 
 
+
+
 int funcQuerryInt ()
 {
 
@@ -604,7 +562,7 @@ void funcintDListCreateFIFO (intDList *pintDList, int DListSize)
     for ( viCn=0; viCn<DListSize; viCn++ )
     {
         viValue = funcQuerryInt ();
-        funcintDListInsertEnd (&(*pintDList), viValue);
+        funcintDListInsertEnd (pintDList, viValue); // &(*pintDList)
     }
 }
 
@@ -616,7 +574,7 @@ void funcintDListCreateLIFO (intDList *pintDList, int DListSize)
     for ( viCn=0; viCn<DListSize; viCn++)
     {
         viValue = funcQuerryInt ();
-        funcintDListInsertBegin (&(*pintDList), viValue);
+        funcintDListInsertBegin (pintDList, viValue);   // &(*pintDList)
     }
 }
 
