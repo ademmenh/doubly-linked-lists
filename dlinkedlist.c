@@ -42,7 +42,6 @@ intDNode* funcintDNodeCreate (int value)
 
 intDNode* funcintDNodePointer (intDList intDList, int index)
 {
-
     intDNode *vpCn;
     int viCn;
 
@@ -281,10 +280,10 @@ void funcintDListInsertEnd (intDList *pintDList, int value)
 
 int funcintDListat (intDList intDList, int index)
 {
-    
-    intDNode *vpCn;
-    int viCn;
 
+    intDNode *vpCn;
+    intDNode *vp;
+    int viCn = 0;
 
     if ( 0<=index )
     {
@@ -293,7 +292,7 @@ int funcintDListat (intDList intDList, int index)
             printf ("The index is out the range of the DList !!!");
             return;
         }
-
+        
         vpCn = intDList.H;
         for ( viCn=0; viCn<index; viCn++ )
         {
@@ -311,16 +310,17 @@ int funcintDListat (intDList intDList, int index)
                 printf ("The index is out the range of the DList !!!");
                 return;
             }
-        }
 
-        vpCn = intDList.T;
-        for ( viCn=-1; index<viCn; viCn--)
-        {
-            vpCn = vpCn->Previous;
-        }
+            vpCn = intDList.T;
+            for ( viCn=-1; index<viCn; viCn--)
+            {
+                vpCn = vpCn->Previous;
+            }
 
-        return vpCn->Value;
+            return vpCn->Value;
+        }
     }
+
 }
 
 int funcintDListIndex (intDList intDList, int value)
@@ -402,10 +402,8 @@ void funcintDListModify (intDList *pintDList, int index, int value)
 void funcintDListRemove (intDList *pintDList, int index)
 {
 
-
-    int viCn = 0;
-    intDNode *vpCn;
     intDNode *vp;
+    intDNode *vpTemp;
 
 
     if ( 0<=index )
@@ -445,10 +443,29 @@ void funcintDListRemove (intDList *pintDList, int index)
     else
     {
         vp = funcintDNodePointer ((*pintDList), index);
-        
-        vp->Previous->Next = vp->Next;
-        vp->Next->Previous = vp->Previous;
-        funcintDNodeFree (vp);
+
+        if ( vp==(*pintDList).H )
+        {
+            vpTemp = (*pintDList).H;
+            (*pintDList).H = (*pintDList).H->Next;
+
+            (*pintDList).H->Previous = NULL;
+            funcintDNodeFree (vpTemp);
+        }
+        else if ( vp==(*pintDList).T )
+        {
+            vpTemp = (*pintDList).T;
+            (*pintDList).T = (*pintDList).T->Previous;
+
+            (*pintDList).T->Next = NULL;
+            funcintDNodeFree (vpTemp);
+        }
+        else
+        {
+            vp->Previous->Next = vp->Next;
+            vp->Next->Previous = vp->Previous;
+            funcintDNodeFree (vp);
+        }
     }
 
 
