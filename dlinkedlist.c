@@ -292,35 +292,21 @@ int funcintDListat (intDList intDList, int index)
             printf ("The index is out the range of the DList !!!");
             return;
         }
-        
-        vpCn = intDList.H;
-        for ( viCn=0; viCn<index; viCn++ )
-        {
-            vpCn = vpCn->Next;
-        }
-        
-        return vpCn->Value;
     }
     else
     {
-        if ( index<0 )
+        if ( intDList.length<-index )
         {
-            if ( intDList.length<-index )
-            {
-                printf ("The index is out the range of the DList !!!");
-                return;
-            }
-
-            vpCn = intDList.T;
-            for ( viCn=-1; index<viCn; viCn--)
-            {
-                vpCn = vpCn->Previous;
-            }
-
-            return vpCn->Value;
+            printf ("The index is out the range of the DList !!!");
+            return;
+        
         }
     }
 
+
+    vp = funcintDNodePointer (intDList, index);
+
+    return vp->Value;
 }
 
 int funcintDListIndex (intDList intDList, int value)
