@@ -33,6 +33,11 @@ intDNode* funcintDNodeCreate (int value)
 {
 
     intDNode *vp = (struct intDNode *) malloc(sizeof(struct intDNode));
+    if ( vp==NULL )
+    {
+        printf ("The Allocation has failled !!!");
+        exit (1);
+    }
 
     funcintDNodeInit (vp);
     vp->Value = value;
