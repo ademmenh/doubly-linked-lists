@@ -577,9 +577,30 @@ void funcintDListClear (intDList *pintDList)
 */
 
 
-void funcintDListsort (intDList *pintDList)
+void funcintDListSort (intDList *pintDList)
 {
-    
+    intDNode *vpCn1, *vpCn2, *vpMin;
+    int viMin;
+
+    vpCn1 = (*pintDList).H;
+    while ( (*pintDList).H!=NULL )
+    {
+        viMin = (*pintDList).H->Value;
+        vpCn2 = vpCn1->Next;
+        while ( (*pintDList).H!=NULL )
+        {
+            if ( vpCn2->Value<viMin )
+            {
+                viMin = vpCn2->Value;
+                vpMin = vpCn2;
+            }
+            vpCn2 = vpCn2->Next;
+        }
+        vpCn1->Value = vpMin->Value;
+        vpMin->Value = vpCn1->Value;
+
+        vpCn1 = vpCn1->Next;
+    }
 }
 
 
