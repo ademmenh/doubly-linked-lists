@@ -732,7 +732,34 @@ void funcintDListSort (intDList *pintDList)
     }
 }
 
+void funcintDListSortReversed (intDList *pintDList)
+{
+    intDNode *vpCn1, *vpCn2, *vpMin;
+    int viMin;
 
+    vpCn1 = (*pintDList).T;
+    while ( vpCn1!=NULL )
+    {
+        viMin = vpCn1->Value;
+        vpMin = vpCn1;
+        vpCn2 = vpCn1->Previous;
+        while ( vpCn2!=NULL )
+        {
+            if ( vpCn2->Value<viMin )
+            {
+                viMin = vpCn2->Value;
+                vpMin = vpCn2;
+            }
+
+            vpCn2 = vpCn2->Previous;
+        }
+        
+        vpMin->Value = vpCn1->Value;
+        vpCn1->Value = viMin;
+
+        vpCn1 = vpCn1->Previous;
+    }
+}
 
 int main ()
 {
@@ -748,7 +775,7 @@ int main ()
 
 
     printf ("\n");
-    funcintDListCreateFIFO (&dliList1, 1);
+    funcintDListCreateFIFO (&dliList1, 5);
     printf ("\n\n");
 
 
@@ -766,8 +793,8 @@ int main ()
 
 
 
-    printf ("Sorting the DList:\n");
-    funcintDListSort (&dliList1);
+    printf ("Sorting Reversed the DList:\n");
+    funcintDListSortReversed (&dliList1);
     printf ("\n\n");
 
 
@@ -778,7 +805,7 @@ int main ()
 
 
     printf ("The count of number 6 is: %d.", funcintDListCount (dliList1, 6));
-    printf ("\n");
+    printf ("\n\n");
 
 
 
