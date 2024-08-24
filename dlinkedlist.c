@@ -200,7 +200,6 @@ void funcintDListInsert (intDList *pintDList, int index, int value)
             else
             {
                 vpCn = (*pintDList).H;
-                printf ("%d \n", vpCn);
                 for ( viCn=0; viCn<index; viCn++ )
                 {
                     vpCn = vpCn->Next;
@@ -376,7 +375,7 @@ int funcintDListIndex (intDList intDList, int value)
     exit(1);
 }
 
-int funcintDListcount (intDList intDList, int value)
+int funcintDListCount (intDList intDList, int value)
 {
     
     intDNode *vpCn = intDList.H;
@@ -394,7 +393,7 @@ int funcintDListcount (intDList intDList, int value)
         vpCn = vpCn->Next;
     }
 
-    return 0;
+    return viFound;
 }
 
 void funcintDListModify (intDList *pintDList, int index, int value)
@@ -745,11 +744,14 @@ int main ()
 
 
 
+    printf ("The count of number 6 is: %d.", funcintDListCount (dliList1, 6));
+    printf ("\n");
+
+
+
     printf ("adding by index:\n");
     funcintDListInsert (&dliList1, 0, 0);
-    printf ("added 0\n");
     funcintDListInsert (&dliList1, 1, 1);
-    printf ("added 1\n");
     printf ("\n\n");
     
 
@@ -776,10 +778,10 @@ int main ()
 
     int viIndex;
     printf ("Return the First Index: \n");
-    viIndex = funcintDListIndex (dliList1, 4);
-    printf ("Number 4 first appeared at index: %d.\n", viIndex);
-    viIndex = funcintDListIndex (dliList1, 6);
-    printf ("Number 6 first appeared at index: %d.\n", viIndex);
+    viIndex = funcintDListIndex (dliList1, 51);
+    printf ("Number 51 first appeared at index: %d.\n", viIndex);
+    viIndex = funcintDListIndex (dliList1, 52);
+    printf ("Number 52 first appeared at index: %d.\n", viIndex);
     printf ("\n\n");
 
 
