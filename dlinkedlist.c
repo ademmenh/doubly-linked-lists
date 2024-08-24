@@ -577,38 +577,6 @@ void funcintDListClear (intDList *pintDList)
 */
 
 
-void funcintDListSort (intDList *pintDList)
-{
-    intDNode *vpCn1, *vpCn2, *vpMin;
-    int viMin;
-
-    vpCn1 = (*pintDList).H;
-    while ( vpCn1!=NULL )
-    {
-        viMin = vpCn1->Value;
-        vpMin = vpCn1;
-        vpCn2 = vpCn1->Next;
-        while ( vpCn2!=NULL )
-        {
-            if ( vpCn2->Value<viMin )
-            {
-                viMin = vpCn2->Value;
-                vpMin = vpCn2;
-            }
-
-            vpCn2 = vpCn2->Next;
-        }
-        
-        vpMin->Value = vpCn1->Value;
-        vpCn1->Value = viMin;
-        
-        vpCn1 = vpCn1->Next;
-    }
-}
-
-
-
-
 
 int funcQuerryInt ()
 {
@@ -735,6 +703,35 @@ void funcintDListDisplayReversed (intDList intDList)
 }
 */
 
+void funcintDListSort (intDList *pintDList)
+{
+    intDNode *vpCn1, *vpCn2, *vpMin;
+    int viMin;
+
+    vpCn1 = (*pintDList).H;
+    while ( vpCn1!=NULL )
+    {
+        viMin = vpCn1->Value;
+        vpMin = vpCn1;
+        vpCn2 = vpCn1->Next;
+        while ( vpCn2!=NULL )
+        {
+            if ( vpCn2->Value<viMin )
+            {
+                viMin = vpCn2->Value;
+                vpMin = vpCn2;
+            }
+
+            vpCn2 = vpCn2->Next;
+        }
+        
+        vpMin->Value = vpCn1->Value;
+        vpCn1->Value = viMin;
+
+        vpCn1 = vpCn1->Next;
+    }
+}
+
 
 
 int main ()
@@ -751,7 +748,7 @@ int main ()
 
 
     printf ("\n");
-    funcintDListCreateFIFO (&dliList1, 5);
+    funcintDListCreateFIFO (&dliList1, 1);
     printf ("\n\n");
 
 
@@ -814,9 +811,9 @@ int main ()
 
     int viIndex;
     printf ("Return the First Index: \n");
-    viIndex = funcintDListIndex (dliList1, 51);
+    viIndex = funcintDListIndex (dliList1, 0);
     printf ("Number 51 first appeared at index: %d.\n", viIndex);
-    viIndex = funcintDListIndex (dliList1, 52);
+    viIndex = funcintDListIndex (dliList1, 1);
     printf ("Number 52 first appeared at index: %d.\n", viIndex);
     printf ("\n\n");
 
