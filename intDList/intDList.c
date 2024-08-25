@@ -23,30 +23,30 @@ typedef struct intDList
 
 
 
-void funcintDNodeInit (intDNode *pintDNode)
+void funcintDNodeInit (intDNode *pDNode)
 {
-    pintDNode->Value = 0;
-    pintDNode->Next = NULL;
-    pintDNode->Previous = NULL;
+    pDNode->Value = 0;
+    pDNode->Next = NULL;
+    pDNode->Previous = NULL;
 }
 
 intDNode* funcintDNodeCreate (int value)
 {
 
-    intDNode *vp = (struct intDNode *) malloc(sizeof(struct intDNode));
-    if ( vp==NULL )
+    intDNode *vpNew = (intDNode *) malloc(sizeof(intDNode));
+    if ( vpNew==NULL )
     {
         printf ("The Allocation has failled !!!");
         exit (1);
     }
 
-    funcintDNodeInit (vp);
-    vp->Value = value;
+    funcintDNodeInit (vpNew);
+    vpNew->Value = value;
 
-    return vp;
+    return vpNew;
 }
 
-intDNode* funcintDNodePointer (intDList intDList, int index)
+intDNode* funcintDNodePointer (intDList pDList, int index)
 {
     intDNode *vpCn;
     int viCn;
@@ -54,13 +54,13 @@ intDNode* funcintDNodePointer (intDList intDList, int index)
 
     if ( 0<=index )
     {
-        if ( intDList.length-1<index )
+        if ( pDList.length-1<index )
         {
             printf ("The index is out the range of the DList !!!");
             exit (1);
         }
 
-        vpCn = intDList.H;
+        vpCn = pDList.H;
         for ( viCn=0; viCn<index; viCn++ )
         {
             vpCn = vpCn->Next;
@@ -70,13 +70,13 @@ intDNode* funcintDNodePointer (intDList intDList, int index)
     }
     else
     {
-        if ( intDList.length<-index )
+        if ( pDList.length<-index )
         {
             printf ("The index is out the range of the DList !!!");
             exit (1);
         }
 
-        vpCn = intDList.T;
+        vpCn = pDList.T;
         for ( viCn=-1; index<viCn; viCn-- )
         {
             vpCn = vpCn->Previous;
@@ -87,7 +87,7 @@ intDNode* funcintDNodePointer (intDList intDList, int index)
 }
 
 /*
-intDNode* funcintDNodePointerTesting (intDList intDList, int index)
+intDNode* funcintDNodePointerTesting (intDList DList, int index)
 {
 
     intDNode *vpCn;
@@ -97,14 +97,14 @@ intDNode* funcintDNodePointerTesting (intDList intDList, int index)
     if ( 0<=index )
     {
         
-        if ( intDList.length-1<index )
+        if ( DList.length-1<index )
         {
             printf ("The index is out the range of the DList !!!");
             return;
         }
         else
         {
-            vpCn = intDList.H;
+            vpCn = DList.H;
             for ( viCn=0; viCn<index; viCn++ )
             {
                 vpCn = vpCn->Next;
@@ -115,14 +115,14 @@ intDNode* funcintDNodePointerTesting (intDList intDList, int index)
     }
     else
     {
-        if ( intDList.length<-index )
+        if ( DList.length<-index )
         {
             printf ("The index is out the range of the DList !!!");
             return;
         }
         else
         {
-            vpCn = intDList.T;
+            vpCn = DList.T;
             for ( viCn=-1; index<viCn; viCn-- )
             {
                 vpCn = vpCn->Previous;
@@ -135,26 +135,26 @@ intDNode* funcintDNodePointerTesting (intDList intDList, int index)
 }
 */
 
-void funcintDNodeFree (intDNode *pintDNode)
+void funcintDNodeFree (intDNode *pDNode)
 {
-    pintDNode->Next = NULL;
-    pintDNode->Previous = NULL;
-    pintDNode->Value = 0;
-    free (pintDNode);
+    pDNode->Next = NULL;
+    pDNode->Previous = NULL;
+    pDNode->Value = 0;
+    free (pDNode);
 }
 
 
 
-void funcintDListInit (intDList *pintDList)
+void funcintDListInit (intDList *pDList)
 {
-    pintDList->H = NULL;
-    pintDList->T = NULL;
-    pintDList->length = 0;
+    pDList->H = NULL;
+    pDList->T = NULL;
+    pDList->length = 0;
 }
 
-bool funcintDListEmpty (intDList intDList)
+bool funcintDListEmpty (intDList pDList)
 {
-    if ( intDList.length==0 )
+    if ( pDList.length==0 )
     {
         return true;
     }
@@ -166,7 +166,7 @@ bool funcintDListEmpty (intDList intDList)
 
 
 // do not have a dependency
-void funcintDListInsert (intDList *pintDList, int index, int value)
+void funcintDListInsert (intDList *pDList, int index, int value)
 {
 
     intDNode *vpNew;
@@ -179,7 +179,7 @@ void funcintDListInsert (intDList *pintDList, int index, int value)
     if ( 0<=index )
     {
         
-        if ( (*pintDList).length<index )
+        if ( (*pDList).length<index )
         {
             printf ("The index is out the range of the DList !!!");
             exit (1);
@@ -187,33 +187,33 @@ void funcintDListInsert (intDList *pintDList, int index, int value)
 
         vpNew = funcintDNodeCreate (value);
 
-        if ( (*pintDList).length==0 )
+        if ( (*pDList).length==0 )
         {
-            (*pintDList).H = vpNew;
-            (*pintDList).T = vpNew;
+            (*pDList).H = vpNew;
+            (*pDList).T = vpNew;
         }
         else
         {
             if ( index==0 )
             {
-                vpTemp = (*pintDList).H;
-                (*pintDList).H = vpNew;
+                vpTemp = (*pDList).H;
+                (*pDList).H = vpNew;
 
-                (*pintDList).H->Next = vpTemp;
-                vpTemp->Previous = (*pintDList).H;
+                (*pDList).H->Next = vpTemp;
+                vpTemp->Previous = (*pDList).H;
             }
-            else if ( index==(*pintDList).length )
+            else if ( index==(*pDList).length )
             {
-                vpTemp = (*pintDList).T;
-                (*pintDList).T = vpNew;
+                vpTemp = (*pDList).T;
+                (*pDList).T = vpNew;
 
-                (*pintDList).T->Previous = vpTemp;
-                vpTemp->Next = (*pintDList).T;
+                (*pDList).T->Previous = vpTemp;
+                vpTemp->Next = (*pDList).T;
             }
             else
             {
 
-                vpCn = (*pintDList).H;
+                vpCn = (*pDList).H;
                 for ( viCn=0; viCn<index; viCn++ )
                 {
                     vpCn = vpCn->Next;
@@ -231,7 +231,7 @@ void funcintDListInsert (intDList *pintDList, int index, int value)
     }
     else
     {
-        if ( (*pintDList).length+1<-index )
+        if ( (*pDList).length+1<-index )
         {
             printf ("The index is out the range of the DList !!!");
             exit (1);
@@ -240,32 +240,32 @@ void funcintDListInsert (intDList *pintDList, int index, int value)
 
         vpNew = funcintDNodeCreate (value);
 
-        if ( (*pintDList).length==0 )
+        if ( (*pDList).length==0 )
         {
-            (*pintDList).H = vpNew;
-            (*pintDList).T = vpNew;
+            (*pDList).H = vpNew;
+            (*pDList).T = vpNew;
         }
         else
         {
             if ( index==-1 )
             {
-                vpTemp = (*pintDList).T;
-                (*pintDList).T = vpNew;
+                vpTemp = (*pDList).T;
+                (*pDList).T = vpNew;
 
-                (*pintDList).T->Previous = vpTemp;
-                vpTemp->Next = (*pintDList).T;
+                (*pDList).T->Previous = vpTemp;
+                vpTemp->Next = (*pDList).T;
             }
-            else if ( index==-((*pintDList).length)-1 )
+            else if ( index==-((*pDList).length)-1 )
             {
-                vpTemp = (*pintDList).H;
-                (*pintDList).H = vpNew;
+                vpTemp = (*pDList).H;
+                (*pDList).H = vpNew;
 
-                (*pintDList).H->Next = vpTemp;
-                vpTemp->Previous = (*pintDList).H;
+                (*pDList).H->Next = vpTemp;
+                vpTemp->Previous = (*pDList).H;
             }
             else
             {
-                vpCn = (*pintDList).T;
+                vpCn = (*pDList).T;
                 for ( viCn=-1; index<viCn; viCn-- )
                 {
                     vpCn = vpCn->Previous;
@@ -284,77 +284,77 @@ void funcintDListInsert (intDList *pintDList, int index, int value)
 
 
 
-    (*pintDList).length++;
+    (*pDList).length++;
 }
 
-void funcintDListInsertBegin (intDList *pintDList, int value)
+void funcintDListInsertBegin (intDList *pDList, int value)
 {
-    funcintDListInsert (pintDList, 0, value);   //&(*pintDList)
+    funcintDListInsert (pDList, 0, value);   //&(*pintDList)
 }
 
-void funcintDListInsertEnd (intDList *pintDList, int value)
+void funcintDListInsertEnd (intDList *pDList, int value)
 {
-    funcintDListInsert (pintDList, pintDList->length, value);     // &(*pintDList), (*pintDList).length
+    funcintDListInsert (pDList, pDList->length, value);     // &(*pDList), (*pDList).length
 }
 
 /*
-void funcintDListInsertBegin (intDList *pintDList, int value)
+void funcintDListInsertBegin (intDList *pDList, int value)
 {
 
     intDNode *vp;
     intDNode *vpTemp;
 
     vp = funcintDNodeCreate (value);
-    if ( (*pintDList).length==0 )
+    if ( (*pDList).length==0 )
     {
-        (*pintDList).H = vp;
-        (*pintDList).T = vp;
+        (*pDList).H = vp;
+        (*pDList).T = vp;
     }
     else
     {
-        vpTemp = (*pintDList).H;
-        (*pintDList).H = vp;
+        vpTemp = (*pDList).H;
+        (*pDList).H = vp;
 
-        (*pintDList).H->Next = vpTemp;
-        vpTemp->Previous = (*pintDList).H;
+        (*pDList).H->Next = vpTemp;
+        vpTemp->Previous = (*pDList).H;
     }
 
 
 
-    (*pintDList).length++;
+    (*pDList).length++;
 }
 */
 
 /*
-void funcintDListInsertEnd (intDList *pintDList, int value)
+void funcintDListInsertEnd (intDList *pDList, int value)
 {
 
     intDNode *vp;
     intDNode *vpTemp;
 
     vp = funcintDNodeCreate(value);
-    if ( (*pintDList).length==0 )
+    if ( (*pDList).length==0 )
     {
-        (*pintDList).H = vp;
-        (*pintDList).T = vp;
+        (*pDList).H = vp;
+        (*pDList).T = vp;
     }
     else
     {
-        vpTemp = (*pintDList).T;
-        (*pintDList).T = vp;
+        vpTemp = (*pDList).T;
+        (*pDList).T = vp;
 
-        (*pintDList).T->Previous = vpTemp;
-        vpTemp->Next = (*pintDList).T;
+        (*pDList).T->Previous = vpTemp;
+        vpTemp->Next = (*pDList).T;
     }
 
 
 
-    (*pintDList).length++;
+    (*pDList).length++;
 }
 */
 
 
-int funcintDListat (intDList intDList, int index)
+int funcintDListat (intDList DList, int index)
 {
 
     intDNode *vpCn;
@@ -363,19 +363,19 @@ int funcintDListat (intDList intDList, int index)
 
 
 
-    vp = funcintDNodePointer (intDList, index);
+    vp = funcintDNodePointer (DList, index);
 
     return vp->Value;
 }
 
-int funcintDListIndex (intDList intDList, int value)
+int funcintDListIndex (intDList DList, int value)
 {
 
     intDNode *vpCn;
     int viCn;
 
-    vpCn = intDList.H;
-    for ( viCn=0; viCn<intDList.length; viCn++ )
+    vpCn = DList.H;
+    for ( viCn=0; viCn<DList.length; viCn++ )
     {
         if ( vpCn->Value == value )
         {
@@ -389,10 +389,10 @@ int funcintDListIndex (intDList intDList, int value)
     exit(1);
 }
 
-int funcintDListCount (intDList intDList, int value)
+int funcintDListCount (intDList DList, int value)
 {
     
-    intDNode *vpCn = intDList.H;
+    intDNode *vpCn = DList.H;
     int viFound = 0;
 
 
@@ -410,16 +410,16 @@ int funcintDListCount (intDList intDList, int value)
     return viFound;
 }
 
-void funcintDListModify (intDList *pintDList, int index, int value)
+void funcintDListModify (intDList *pDList, int index, int value)
 {
 
-    intDNode *vp = funcintDNodePointer (*pintDList, index);
+    intDNode *vp = funcintDNodePointer (*pDList, index);
 
     vp->Value = value;
 }
 
 
-void funcintDListRemove (intDList *pintDList, int index)
+void funcintDListRemove (intDList *pDList, int index)
 {
 
     intDNode *vp;
@@ -427,34 +427,34 @@ void funcintDListRemove (intDList *pintDList, int index)
 
 
 
-    vp = funcintDNodePointer (*pintDList, index);
+    vp = funcintDNodePointer (*pDList, index);
 
 
 
-    if ( (*pintDList).length==1 )
+    if ( (*pDList).length==1 )
     {
         vpTemp = vp;
-        (*pintDList).H = NULL;
-        (*pintDList).T = NULL;
+        (*pDList).H = NULL;
+        (*pDList).T = NULL;
 
         funcintDNodeFree (vpTemp);
     }
     else
     {
-        if ( vp==(*pintDList).H )
+        if ( vp==(*pDList).H )
         {
-            vpTemp = (*pintDList).H;
-            (*pintDList).H = (*pintDList).H->Next;
+            vpTemp = (*pDList).H;
+            (*pDList).H = (*pDList).H->Next;
 
-            (*pintDList).H->Previous = NULL;
+            (*pDList).H->Previous = NULL;
             funcintDNodeFree (vpTemp);
         }
-        else if ( vp==(*pintDList).T )
+        else if ( vp==(*pDList).T )
         {
-            vpTemp = (*pintDList).T;
-            (*pintDList).T = (*pintDList).T->Previous;
+            vpTemp = (*pDList).T;
+            (*pDList).T = (*pDList).T->Previous;
 
-            (*pintDList).T->Next = NULL;
+            (*pDList).T->Next = NULL;
             funcintDNodeFree (vpTemp);
         }
         else
@@ -471,104 +471,104 @@ void funcintDListRemove (intDList *pintDList, int index)
 
 
 
-    (*pintDList).length--;
+    (*pDList).length--;
 }
 
-void funcintDListRemoveBegin (intDList *pintDList)
+void funcintDListRemoveBegin (intDList *pDList)
 {
-    funcintDListRemove (pintDList, 0);  // &(*pintDList)
+    funcintDListRemove (pDList, 0);  // &(*pDList)
 }
 
-void funcintDListRemoveEnd (intDList *pintDList)
+void funcintDListRemoveEnd (intDList *pDList)
 {
-    funcintDListRemove (pintDList, pintDList->length-1);  // &(*pintDList), (*pintDList).length-1
+    funcintDListRemove (pDList, pDList->length-1);  // &(*pDList), (*pDList).length-1
 }
 
 /*
-void funcintDListRemoveBegin (intDList *pintDList)
+void funcintDListRemoveBegin (intDList *pDList)
 {
     
     intDNode *vpTemp;
 
-    if ( (*pintDList).length==0 )
+    if ( (*pDList).length==0 )
     {
         printf ("The list is already empty !!!");
         return;
     }
 
 
-    if ( (*pintDList).length==1 )
+    if ( (*pDList).length==1 )
     {
-        vpTemp = (*pintDList).H;
-        (*pintDList).H = NULL;
-        (*pintDList).T = NULL;
+        vpTemp = (*pDList).H;
+        (*pDList).H = NULL;
+        (*pDList).T = NULL;
 
         functintDNodeFree (vpTemp);
     }
     else
     {
-        vpTemp = (*pintDList).H;
-        (*pintDList).H = (*pintDList).H->Next;
+        vpTemp = (*pDList).H;
+        (*pDList).H = (*pDList).H->Next;
 
-        (*pintDList).H->Previous = NULL;
+        (*pDList).H->Previous = NULL;
         funcintDNodeFree (vpTemp);    
     }
 
 
 
-    (*pintDList).length--;
+    (*pDList).length--;
 }
 */
 
 /*
-void funcintDListRemoveEnd (intDList *pintDList)
+void funcintDListRemoveEnd (intDList *pDList)
 {
     
     intDNode *vpTemp;
     
 
-    if ( (*pintDList).length==0 )
+    if ( (*pDList).length==0 )
     {
         printf ("The DList is already empty !!!");
         return;
     }
 
-    if ( (*pintDList.length==1) )
+    if ( (*pDList.length==1) )
     {
-        vpTemp = (*pintDList).H;
-        (*pintDList).H = NULL;
-        (*pintDList).T = NULL;
+        vpTemp = (*pDList).H;
+        (*pDList).H = NULL;
+        (*pDList).T = NULL;
 
         funcintDNodeFree (vpTemp);
     }
     else
     {
-        vpTemp = (*pintDList).T;
-        (*pintDList).T = (*pintDList).T->Previous;
+        vpTemp = (*pDList).T;
+        (*pDList).T = (*pDList).T->Previous;
 
-        (*pintDList).T->Next = NULL;
+        (*pDList).T->Next = NULL;
         funcintDNodeFree (vpTemp);
     }
     
 
 
 
-    (*pintDList).length--;
+    (*pDList).length--;
 }
 */
 
 
-void funcintDListClear (intDList *pintDList)
+void funcintDListClear (intDList *pDList)
 {
 
-    while ( (*pintDList).length>0 )
+    while ( (*pDList).length>0 )
     {
-        funcintDListRemove (pintDList, 0);  // &(*pintDList)
+        funcintDListRemove (pDList, 0);  // &(*pDList)
     }
 }
 
 /*
-void funcintDListClear (intDList *pintDList)
+void funcintDListClear (intDList *pDList)
 {
 
 
@@ -576,7 +576,7 @@ void funcintDListClear (intDList *pintDList)
     intDNode *vpTemp;
 
 
-    vpCn = (*pintDList).H;
+    vpCn = (*pDList).H;
     while ( vpCn!=NULL )
     {
         vpTemp = vpCn;
@@ -586,9 +586,9 @@ void funcintDListClear (intDList *pintDList)
     }
 
 
-    (*pintDList).H = NULL;
-    (*pintDList).T = NULL;
-    (*pintDList).length = 0;
+    (*pDList).H = NULL;
+    (*pDList).T = NULL;
+    (*pDList).length = 0;
 }
 */
 
@@ -604,7 +604,7 @@ int funcQuerryInt ()
     return viNum1;
 }
 
-void funcintDListCreateFIFO (intDList *pintDList, int DListSize)
+void funcintDListCreateFIFO (intDList *pDList, int DListSize)
 {
 
     int viValue;
@@ -612,11 +612,11 @@ void funcintDListCreateFIFO (intDList *pintDList, int DListSize)
     for ( viCn=0; viCn<DListSize; viCn++ )
     {
         viValue = funcQuerryInt ();
-        funcintDListInsertEnd (pintDList, viValue); // &(*pintDList)
+        funcintDListInsertEnd (pDList, viValue); // &(*pDList)
     }
 }
 
-void funcintDListCreateLIFO (intDList *pintDList, int DListSize)
+void funcintDListCreateLIFO (intDList *pDList, int DListSize)
 {
 
     int viValue;
@@ -624,16 +624,16 @@ void funcintDListCreateLIFO (intDList *pintDList, int DListSize)
     for ( viCn=0; viCn<DListSize; viCn++)
     {
         viValue = funcQuerryInt ();
-        funcintDListInsertBegin (pintDList, viValue);   // &(*pintDList)
+        funcintDListInsertBegin (pDList, viValue);   // &(*pDList)
     }
 }
 
-void funcintDListSort (intDList *pintDList)
+void funcintDListSort (intDList *pDList)
 {
     intDNode *vpCn1, *vpCn2, *vpMin;
     int viMin;
 
-    vpCn1 = (*pintDList).H;
+    vpCn1 = (*pDList).H;
     while ( vpCn1!=NULL )
     {
         viMin = vpCn1->Value;
@@ -657,12 +657,12 @@ void funcintDListSort (intDList *pintDList)
     }
 }
 
-void funcintDListSortReversed (intDList *pintDList)
+void funcintDListSortReversed (intDList *pDList)
 {
     intDNode *vpCn1, *vpCn2, *vpMin;
     int viMin;
 
-    vpCn1 = (*pintDList).T;
+    vpCn1 = (*pDList).T;
     while ( vpCn1!=NULL )
     {
         viMin = vpCn1->Value;
@@ -687,20 +687,20 @@ void funcintDListSortReversed (intDList *pintDList)
 }
 
 
-void funcintDListDisplay (intDList intDList)
+void funcintDListDisplay (intDList DList)
 {
 
     intDNode *vpCn;
     int viCn;
 
     
-    if ( intDList.length==0 )
+    if ( DList.length==0 )
     {
         printf ("The DList is Empty !!!\n");
         return;
     }
     
-    vpCn = intDList.H;
+    vpCn = DList.H;
     viCn = 0;
     while (vpCn!=NULL)
     {
@@ -712,20 +712,20 @@ void funcintDListDisplay (intDList intDList)
 }
 
 /*
-void funcintDListDisplay (intDList intDList)
+void funcintDListDisplay (intDList DList)
 {
 
     intDNode *vpCn;
     int viCn;
 
-    if ( intDList.length == 0 )
+    if ( DList.length == 0 )
     {
         printf ("The DList is empty !!!");
         return;
     }
 
-    vpCn = intDList.H;
-    for ( viCn=0; viCn<intDList.length; viCn++ )
+    vpCn = DList.H;
+    for ( viCn=0; viCn<DList.length; viCn++ )
     {
         printf ("The value %d is: %d.\n", viCn, vpCn->Value);
         vpCn = vpCn->Next;
@@ -733,20 +733,20 @@ void funcintDListDisplay (intDList intDList)
 }
 */
 
-void funcintDListDisplayReversed (intDList intDList)
+void funcintDListDisplayReversed (intDList DList)
 {
 
     intDNode *vpCn;
     int viCn;
 
-    if ( intDList.length==0 )
+    if ( DList.length==0 )
     {
         printf ("The Dlist is empty !!!\n");
         return;
     }
     
     
-    vpCn = intDList.T;
+    vpCn = DList.T;
     viCn = 0;
     while ( vpCn!=NULL )
     {
@@ -757,19 +757,19 @@ void funcintDListDisplayReversed (intDList intDList)
 }
 
 /*
-void funcintDListDisplayReversed (intDList intDList)
+void funcintDListDisplayReversed (intDList DList)
 {
     intDNode *vpCn;
     int viCn;
 
-    if ( intDList.length == 0 )
+    if ( DList.length == 0 )
     {
         printf ("The DList is Empty !!!");
         return;
     }
 
-    vpCn = intDList.H;
-    for ( viCn=0; viCn<intDList.length; viCn++ )
+    vpCn = DList.H;
+    for ( viCn=0; viCn<DList.length; viCn++ )
     {
         printf ("The value n %d is: %d.\n", viCn, vpCn->Value);
         vpCn = vpCn->Next;
@@ -780,3 +780,8 @@ void funcintDListDisplayReversed (intDList intDList)
 */
 
 
+
+int main ()
+{
+    return 0;
+}
