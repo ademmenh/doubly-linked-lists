@@ -10,8 +10,8 @@
 typedef struct floatDNode
 {
     float Value;
-    struct intDNode *Previous;
-    struct intDNode *Next;
+    struct floatDNode *Previous;
+    struct floatDNode *Next;
 } floatDNode;
 
 typedef struct floatDList
@@ -33,17 +33,17 @@ void funcfloatDNodeInit (floatDNode *pDNode)
 floatDNode* funcfloatDNodeCreate (float value)
 {
 
-    floatDNode *vp = (struct floatDNode *) malloc(sizeof(struct floatDNode));
-    if ( vp==NULL )
+    floatDNode *vpNew = (floatDNode *) malloc(sizeof(floatDNode));
+    if ( vpNew==NULL )
     {
         printf ("\nThe Allocation has failled !!!");
         exit (1);
     }
 
-    funcfloatDNodeInit (vp);
-    vp->Value = value;
+    funcfloatDNodeInit (vpNew);
+    vpNew->Value = value;
 
-    return vp;
+    return vpNew;
 }
 
 floatDNode* funcfloatDNodePointer (floatDList DList, int index)
@@ -96,16 +96,16 @@ void funcfloatDNodeFree (floatDNode *pDNode)
 
 
 
-void funcfloatDListInit (floatDList *pfloatDList)
+void funcfloatDListInit (floatDList *pDList)
 {
-    pfloatDList->H = NULL;
-    pfloatDList->T = NULL;
-    pfloatDList->length = 0;
+    pDList->H = NULL;
+    pDList->T = NULL;
+    pDList->length = 0;
 }
 
-bool funcfloatDListEmpty (floatDList floatDList)
+bool funcfloatDListEmpty (floatDList DList)
 {
-    if ( floatDList.length==0 )
+    if ( DList.length==0 )
     {
         return true;
     }
@@ -117,7 +117,7 @@ bool funcfloatDListEmpty (floatDList floatDList)
 
 
 // do not have a dependency
-void funcfloatDListInsert (floatDList *pfloatDList, int index, float value)
+void funcfloatDListInsert (floatDList *pDList, int index, float value)
 {
 
     floatDNode *vpNew;
@@ -130,7 +130,7 @@ void funcfloatDListInsert (floatDList *pfloatDList, int index, float value)
     if ( 0<=index )
     {
         
-        if ( (*pfloatDList).length<index )
+        if ( (*pDList).length<index )
         {
             printf ("The index is out the range of the DList !!!");
             exit (1);
@@ -138,33 +138,33 @@ void funcfloatDListInsert (floatDList *pfloatDList, int index, float value)
 
         vpNew = funcfloatDNodeCreate (value);
 
-        if ( (*pfloatDList).length==0 )
+        if ( (*pDList).length==0 )
         {
-            (*pfloatDList).H = vpNew;
-            (*pfloatDList).T = vpNew;
+            (*pDList).H = vpNew;
+            (*pDList).T = vpNew;
         }
         else
         {
             if ( index==0 )
             {
-                vpTemp = (*pfloatDList).H;
-                (*pfloatDList).H = vpNew;
+                vpTemp = (*pDList).H;
+                (*pDList).H = vpNew;
 
-                (*pfloatDList).H->Next = vpTemp;
-                vpTemp->Previous = (*pfloatDList).H;
+                (*pDList).H->Next = vpTemp;
+                vpTemp->Previous = (*pDList).H;
             }
-            else if ( index==(*pfloatDList).length )
+            else if ( index==(*pDList).length )
             {
-                vpTemp = (*pfloatDList).T;
-                (*pfloatDList).T = vpNew;
+                vpTemp = (*pDList).T;
+                (*pDList).T = vpNew;
 
-                (*pfloatDList).T->Previous = vpTemp;
-                vpTemp->Next = (*pfloatDList).T;
+                (*pDList).T->Previous = vpTemp;
+                vpTemp->Next = (*pDList).T;
             }
             else
             {
 
-                vpCn = (*pfloatDList).H;
+                vpCn = (*pDList).H;
                 for ( viCn=0; viCn<index; viCn++ )
                 {
                     vpCn = vpCn->Next;
@@ -182,7 +182,7 @@ void funcfloatDListInsert (floatDList *pfloatDList, int index, float value)
     }
     else
     {
-        if ( (*pfloatDList).length+1<-index )
+        if ( (*pDList).length+1<-index )
         {
             printf ("The index is out the range of the DList !!!");
             exit (1);
@@ -191,32 +191,32 @@ void funcfloatDListInsert (floatDList *pfloatDList, int index, float value)
 
         vpNew = funcfloatDNodeCreate (value);
 
-        if ( (*pfloatDList).length==0 )
+        if ( (*pDList).length==0 )
         {
-            (*pfloatDList).H = vpNew;
-            (*pfloatDList).T = vpNew;
+            (*pDList).H = vpNew;
+            (*pDList).T = vpNew;
         }
         else
         {
             if ( index==-1 )
             {
-                vpTemp = (*pfloatDList).T;
-                (*pfloatDList).T = vpNew;
+                vpTemp = (*pDList).T;
+                (*pDList).T = vpNew;
 
-                (*pfloatDList).T->Previous = vpTemp;
-                vpTemp->Next = (*pfloatDList).T;
+                (*pDList).T->Previous = vpTemp;
+                vpTemp->Next = (*pDList).T;
             }
-            else if ( index==-((*pfloatDList).length)-1 )
+            else if ( index==-((*pDList).length)-1 )
             {
-                vpTemp = (*pfloatDList).H;
-                (*pfloatDList).H = vpNew;
+                vpTemp = (*pDList).H;
+                (*pDList).H = vpNew;
 
-                (*pfloatDList).H->Next = vpTemp;
-                vpTemp->Previous = (*pfloatDList).H;
+                (*pDList).H->Next = vpTemp;
+                vpTemp->Previous = (*pDList).H;
             }
             else
             {
-                vpCn = (*pfloatDList).T;
+                vpCn = (*pDList).T;
                 for ( viCn=-1; index<viCn; viCn-- )
                 {
                     vpCn = vpCn->Previous;
@@ -235,44 +235,44 @@ void funcfloatDListInsert (floatDList *pfloatDList, int index, float value)
 
 
 
-    (*pfloatDList).length++;
+    (*pDList).length++;
 }
 
-void funcfloatDListInsertBegin (floatDList *pfloatDList, float value)
+void funcfloatDListInsertBegin (floatDList *pDList, float value)
 {
-    funcintDListInsert (pfloatDList, 0, value);   //&(*pintDList)
+    funcfloatDListInsert (pDList, 0, value);   //&(*pDList)
 }
 
-void funcfloatDListInsertEnd (floatDList *pfloatDList, float value)
+void funcfloatDListInsertEnd (floatDList *pDList, float value)
 {
-    funcintDListInsert (pfloatDList, pfloatDList->length, value);     // &(*pintDList), (*pintDList).length
+    funcfloatDListInsert (pDList, pDList->length, value);     // &(*pDList), (*pDList).length
 }
 
 /*
-void funcfloatDListInsertBegin (floatDList *pfloatDList, float value)
+void funcfloatDListInsertBegin (floatDList *pDList, float value)
 {
 
     floatDNode *vp;
     floatDNode *vpTemp;
 
     vp = funcfloatDNodeCreate (value);
-    if ( (*pfloatDList).length==0 )
+    if ( (*pDList).length==0 )
     {
-        (*pfloatDList).H = vp;
-        (*pfloatDList).T = vp;
+        (*pDList).H = vp;
+        (*pDList).T = vp;
     }
     else
     {
-        vpTemp = (*pfloatDList).H;
-        (*pfloatDList).H = vp;
+        vpTemp = (*pDList).H;
+        (*pDList).H = vp;
 
-        (*pfloatDList).H->Next = vpTemp;
-        vpTemp->Previous = (*pfloatDList).H;
+        (*pDList).H->Next = vpTemp;
+        vpTemp->Previous = (*pDList).H;
     }
 
 
 
-    (*pfloatDList).length++;
+    (*pDList).length++;
 }
 */
 
@@ -305,7 +305,7 @@ void funcfloatDListInsertEnd (floatDList *pfloatDList, float value)
 */
 
 
-float funcfloatDListat (floatDList floatDList, int index)
+float funcfloatDListat (floatDList pDList, int index)
 {
 
     floatDNode *vpCn;
@@ -314,19 +314,19 @@ float funcfloatDListat (floatDList floatDList, int index)
 
 
 
-    vp = funcfloatDNodePointer (floatDList, index);
+    vp = funcfloatDNodePointer (pDList, index);
 
     return vp->Value;
 }
 
-int funcfloatDListIndex (floatDList floatDList, float value)
+int funcfloatDListIndex (floatDList pDList, float value)
 {
 
     floatDNode *vpCn;
     int viCn;
 
-    vpCn = floatDList.H;
-    for ( viCn=0; viCn<floatDList.length; viCn++ )
+    vpCn = pDList.H;
+    for ( viCn=0; viCn<pDList.length; viCn++ )
     {
         if ( vpCn->Value == value )
         {
@@ -340,10 +340,10 @@ int funcfloatDListIndex (floatDList floatDList, float value)
     exit(1);
 }
 
-int funcfloatDListCount (floatDList floatDList, float value)
+int funcfloatDListCount (floatDList pDList, float value)
 {
     
-    floatDNode *vpCn = floatDList.H;
+    floatDNode *vpCn = pDList.H;
     int viFound = 0;
 
 
@@ -361,16 +361,16 @@ int funcfloatDListCount (floatDList floatDList, float value)
     return viFound;
 }
 
-void funcintDListModify (floatDList *pfloatDList, int index, float value)
+void funcintDListModify (floatDList *pDList, int index, float value)
 {
 
-    floatDNode *vp = funcfloatDNodePointer (*pfloatDList, index);
+    floatDNode *vpNew = funcfloatDNodePointer (*pDList, index);
 
-    vp->Value = value;
+    vpNew->Value = value;
 }
 
 
-void funcfloatDListRemove (floatDList *pfloatDList, int index)
+void funcfloatDListRemove (floatDList *pDList, int index)
 {
 
     floatDNode *vp;
@@ -378,34 +378,34 @@ void funcfloatDListRemove (floatDList *pfloatDList, int index)
 
 
 
-    vp = funcfloatDNodePointer (*pfloatDList, index);
+    vp = funcfloatDNodePointer (*pDList, index);
 
 
 
-    if ( (*pfloatDList).length==1 )
+    if ( (*pDList).length==1 )
     {
         vpTemp = vp;
-        (*pfloatDList).H = NULL;
-        (*pfloatDList).T = NULL;
+        (*pDList).H = NULL;
+        (*pDList).T = NULL;
 
-        funcintDNodeFree (vpTemp);
+        funcfloatDNodeFree (vpTemp);
     }
     else
     {
-        if ( vp==(*pfloatDList).H )
+        if ( vp==(*pDList).H )
         {
-            vpTemp = (*pfloatDList).H;
-            (*pfloatDList).H = (*pfloatDList).H->Next;
+            vpTemp = (*pDList).H;
+            (*pDList).H = (*pDList).H->Next;
 
-            (*pfloatDList).H->Previous = NULL;
+            (*pDList).H->Previous = NULL;
             funcfloatDNodeFree (vpTemp);
         }
-        else if ( vp==(*pfloatDList).T )
+        else if ( vp==(*pDList).T )
         {
-            vpTemp = (*pfloatDList).T;
-            (*pfloatDList).T = (*pfloatDList).T->Previous;
+            vpTemp = (*pDList).T;
+            (*pDList).T = (*pDList).T->Previous;
 
-            (*pfloatDList).T->Next = NULL;
+            (*pDList).T->Next = NULL;
             funcfloatDNodeFree (vpTemp);
         }
         else
@@ -422,104 +422,104 @@ void funcfloatDListRemove (floatDList *pfloatDList, int index)
 
 
 
-    (*pfloatDList).length--;
+    (*pDList).length--;
 }
 
-void funcintDListRemoveBegin (floatDList *pfloatDList)
+void funcintDListRemoveBegin (floatDList *pDList)
 {
-    funcintDListRemove (pfloatDList, 0);  // &(*pfloatDList)
+    funcfloatDListRemove (pDList, 0);  // &(*pDList)
 }
 
-void funcintDListRemoveEnd (floatDList *pfloatDList)
+void funcintDListRemoveEnd (floatDList *pDList)
 {
-    funcintDListRemove (pfloatDList, pfloatDList->length-1);  // &(*pfloatDList), (*pfloatDList).length-1
+    funcfloatDListRemove (pDList, pDList->length-1);  // &(*pDList), (*pDList).length-1
 }
 
 /*
-void funcfloatDListRemoveBegin (floatDList *pfloatDList)
+void funcfloatDListRemoveBegin (floatDList *pDList)
 {
     
     floatDNode *vpTemp;
 
-    if ( (*pfloatDList).length==0 )
+    if ( (*pDList).length==0 )
     {
         printf ("The list is already empty !!!");
         return;
     }
 
 
-    if ( (*pfloatDList).length==1 )
+    if ( (*pDList).length==1 )
     {
-        vpTemp = (*pfloatDList).H;
-        (*pfloatDList).H = NULL;
-        (*pfloatDList).T = NULL;
+        vpTemp = (*pDList).H;
+        (*pDList).H = NULL;
+        (*pDList).T = NULL;
 
         funcfloatDNodeFree (vpTemp);
     }
     else
     {
-        vpTemp = (*pfloatDList).H;
-        (*pfloatDList).H = (*pfloatDList).H->Next;
+        vpTemp = (*pDList).H;
+        (*pDList).H = (*pDList).H->Next;
 
-        (*pfloatDList).H->Previous = NULL;
+        (*pDList).H->Previous = NULL;
         funcfloatDNodeFree (vpTemp);    
     }
 
 
 
-    (*pfloatDList).length--;
+    (*pDList).length--;
 }
 */
 
 /*
-void funcfloatDListRemoveEnd (intDList *pintDList)
+void funcfloatDListRemoveEnd (intDList *pDList)
 {
     
     floatDNode *vpTemp;
     
 
-    if ( (*pfloatDList).length==0 )
+    if ( (*pDList).length==0 )
     {
         printf ("The DList is already empty !!!");
         return;
     }
 
-    if ( (*pfloatDList.length==1) )
+    if ( (*pDList.length==1) )
     {
-        vpTemp = (*pfloatDList).H;
-        (*pfloatDList).H = NULL;
-        (*pfloatDList).T = NULL;
+        vpTemp = (*pDList).H;
+        (*pDList).H = NULL;
+        (*pDList).T = NULL;
 
         funcfloatDNodeFree (vpTemp);
     }
     else
     {
-        vpTemp = (*pfloatDList).T;
-        (*pfloatDList).T = (*pfloatDList).T->Previous;
+        vpTemp = (*pDList).T;
+        (*pDList).T = (*pDList).T->Previous;
 
-        (*pfloatDList).T->Next = NULL;
+        (*pDList).T->Next = NULL;
         funcfloatDNodeFree (vpTemp);
     }
     
 
 
 
-    (*pfloatDList).length--;
+    (*pDList).length--;
 }
 */
 
 
-void funcfloatDListClear (floatDList *pfloatDList)
+void funcfloatDListClear (floatDList *pDList)
 {
 
-    while ( (*pfloatDList).length>0 )
+    while ( (*pDList).length>0 )
     {
-        funcintDListRemove (pfloatDList, 0);  // &(*pintDList)
+        funcfloatDListRemove (pDList, 0);  // &(*pDList)
     }
 }
 
 /*
-void funcfloatDListClear (floatDList *pfloatDList)
+void funcfloatDListClear (floatDList *pDList)
 {
 
 
@@ -527,7 +527,7 @@ void funcfloatDListClear (floatDList *pfloatDList)
     floatDNode *vpTemp;
 
 
-    vpCn = (*pfloatDList).H;
+    vpCn = (*pDList).H;
     while ( vpCn!=NULL )
     {
         vpTemp = vpCn;
@@ -537,9 +537,9 @@ void funcfloatDListClear (floatDList *pfloatDList)
     }
 
 
-    (*pfloatDList).H = NULL;
-    (*pfloatDList).T = NULL;
-    (*pfloatDList).length = 0;
+    (*pDList).H = NULL;
+    (*pDList).T = NULL;
+    (*pDList).length = 0;
 }
 */
 
@@ -563,7 +563,7 @@ void funcintDListCreateFIFO (floatDList *pDList, int DListSize)
     for ( viCn=0; viCn<DListSize; viCn++ )
     {
         vfValue = funcQuerryfloat ();
-        funcintDListInsertEnd (pDList, vfValue); // &(*pDList)
+        funcfloatDListInsertEnd (pDList, vfValue); // &(*pDList)
     }
 }
 
@@ -574,10 +574,11 @@ void funcintDListCreateLIFO (floatDList *pDList, int DListSize)
     int viCn;
     for ( viCn=0; viCn<DListSize; viCn++)
     {
-        vfValue = funcQuerryInt ();
-        funcintDListInsertBegin (pDList, vfValue);   // &(*pintDList)
+        vfValue = funcQuerryfloat ();
+        funcfloatDListInsertBegin (pDList, vfValue);   // &(*pDList)
     }
 }
+
 
 void funcintDListSort (floatDList *pDList)
 {
@@ -730,3 +731,7 @@ void funcintDListDisplayReversed (floatDList DList)
 */
 
 
+int main ()
+{
+    return 0;
+}
