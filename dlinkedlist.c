@@ -151,6 +151,7 @@ void funcintDListInit (intDList *pintDList)
     pintDList->length = 0;
 }
 
+
 // do not have a dependency
 void funcintDListInsert (intDList *pintDList, int index, int value)
 {
@@ -173,7 +174,7 @@ void funcintDListInsert (intDList *pintDList, int index, int value)
 
         vpNew = funcintDNodeCreate (value);
 
-        if ( (*pintDList).H==NULL&&(*pintDList).T==NULL )
+        if ( (*pintDList).length==0 )
         {
             (*pintDList).H = vpNew;
             (*pintDList).T = vpNew;
@@ -766,37 +767,3 @@ void funcintDListDisplayReversed (intDList intDList)
 */
 
 
-
-int main ()
-{
-    
-    // clear the terminal
-    system ("cls");
-
-
-
-    intDList dliList1;
-    funcintDListInit (&dliList1);
-
-
-
-    printf ("\n");
-    funcintDListCreateFIFO (&dliList1, 0);
-    printf ("\n\n");
-
-
-
-    printf ("Displaying the DList:\n");
-    funcintDListDisplay (dliList1);
-    printf ("\n\n");
-
-
-
-    printf ("Displaying the DList in reversed:\n");
-    funcintDListDisplayReversed (dliList1);
-    printf ("\n\n");
-
-
-
-    return 0;
-}
