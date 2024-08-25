@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 
 
@@ -149,6 +150,18 @@ void funcintDListInit (intDList *pintDList)
     pintDList->H = NULL;
     pintDList->T = NULL;
     pintDList->length = 0;
+}
+
+bool funcintDListEmpty (intDList intDList)
+{
+    if ( intDList.length==0 )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 
