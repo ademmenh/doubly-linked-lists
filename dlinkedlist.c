@@ -161,7 +161,6 @@ void funcintDListInsert (intDList *pintDList, int index, int value)
     int viCn;
 
 
-
     
     if ( 0<=index )
     {
@@ -174,7 +173,7 @@ void funcintDListInsert (intDList *pintDList, int index, int value)
 
         vpNew = funcintDNodeCreate (value);
 
-        if ( (*pintDList).length==0 )
+        if ( (*pintDList).H==NULL&&(*pintDList).T==NULL )
         {
             (*pintDList).H = vpNew;
             (*pintDList).T = vpNew;
@@ -199,6 +198,7 @@ void funcintDListInsert (intDList *pintDList, int index, int value)
             }
             else
             {
+
                 vpCn = (*pintDList).H;
                 for ( viCn=0; viCn<index; viCn++ )
                 {
@@ -404,6 +404,7 @@ void funcintDListModify (intDList *pintDList, int index, int value)
     vp->Value = value;
 }
 
+
 void funcintDListRemove (intDList *pintDList, int index)
 {
 
@@ -542,6 +543,7 @@ void funcintDListRemoveEnd (intDList *pintDList)
 }
 */
 
+
 void funcintDListClear (intDList *pintDList)
 {
 
@@ -612,97 +614,6 @@ void funcintDListCreateLIFO (intDList *pintDList, int DListSize)
     }
 }
 
-void funcintDListDisplay (intDList intDList)
-{
-
-    intDNode *vpCn;
-    int viCn;
-
-    if ( vpCn==NULL )
-    {
-        printf ("The DList is Empty !!!\n");
-        return;
-    }
-    
-    vpCn = intDList.H;
-    viCn = 0;
-    while (vpCn!=NULL)
-    {
-        printf ("The value n %d is: %d.\n", viCn, vpCn->Value);
-        vpCn = vpCn->Next;
-        viCn++;
-    }
-    
-}
-
-/*
-void funcintDListDisplay (intDList intDList)
-{
-
-    intDNode *vpCn;
-    int viCn;
-
-    if ( intDList.length == 0 )
-    {
-        printf ("The DList is empty !!!");
-        return;
-    }
-
-    vpCn = intDList.H;
-    for ( viCn=0; viCn<intDList.length; viCn++ )
-    {
-        printf ("The value %d is: %d.\n", viCn, vpCn->Value);
-        vpCn = vpCn->Next;
-    }
-}
-*/
-
-void funcintDListDisplayReversed (intDList intDList)
-{
-
-    intDNode *vpCn;
-    int viCn;
-
-    if ( vpCn==NULL )
-    {
-        printf ("The Dlist is empty !!!\n");
-        return;
-    }
-    
-    
-    vpCn = intDList.T;
-    viCn = 0;
-    while ( vpCn!=NULL )
-    {
-        printf ("The value n %d is: %d.\n", viCn, vpCn->Value);
-        vpCn = vpCn->Previous;
-        viCn++;
-    }
-}
-
-/*
-void funcintDListDisplayReversed (intDList intDList)
-{
-    intDNode *vpCn;
-    int viCn;
-
-    if ( intDList.length == 0 )
-    {
-        printf ("The DList is Empty !!!");
-        return;
-    }
-
-    vpCn = intDList.H;
-    for ( viCn=0; viCn<intDList.length; viCn++ )
-    {
-        printf ("The value n %d is: %d.\n", viCn, vpCn->Value);
-        vpCn = vpCn->Next;
-    }
-
-
-}
-*/
-
 void funcintDListSort (intDList *pintDList)
 {
     intDNode *vpCn1, *vpCn2, *vpMin;
@@ -761,6 +672,101 @@ void funcintDListSortReversed (intDList *pintDList)
     }
 }
 
+
+void funcintDListDisplay (intDList intDList)
+{
+
+    intDNode *vpCn;
+    int viCn;
+
+    
+    if ( intDList.length==0 )
+    {
+        printf ("The DList is Empty !!!\n");
+        return;
+    }
+    
+    vpCn = intDList.H;
+    viCn = 0;
+    while (vpCn!=NULL)
+    {
+        printf ("The value n %d is: %d.\n", viCn, vpCn->Value);
+        vpCn = vpCn->Next;
+        viCn++;
+    }
+    
+}
+
+/*
+void funcintDListDisplay (intDList intDList)
+{
+
+    intDNode *vpCn;
+    int viCn;
+
+    if ( intDList.length == 0 )
+    {
+        printf ("The DList is empty !!!");
+        return;
+    }
+
+    vpCn = intDList.H;
+    for ( viCn=0; viCn<intDList.length; viCn++ )
+    {
+        printf ("The value %d is: %d.\n", viCn, vpCn->Value);
+        vpCn = vpCn->Next;
+    }
+}
+*/
+
+void funcintDListDisplayReversed (intDList intDList)
+{
+
+    intDNode *vpCn;
+    int viCn;
+
+    if ( intDList.length==0 )
+    {
+        printf ("The Dlist is empty !!!\n");
+        return;
+    }
+    
+    
+    vpCn = intDList.T;
+    viCn = 0;
+    while ( vpCn!=NULL )
+    {
+        printf ("The value n %d is: %d.\n", viCn, vpCn->Value);
+        vpCn = vpCn->Previous;
+        viCn++;
+    }
+}
+
+/*
+void funcintDListDisplayReversed (intDList intDList)
+{
+    intDNode *vpCn;
+    int viCn;
+
+    if ( intDList.length == 0 )
+    {
+        printf ("The DList is Empty !!!");
+        return;
+    }
+
+    vpCn = intDList.H;
+    for ( viCn=0; viCn<intDList.length; viCn++ )
+    {
+        printf ("The value n %d is: %d.\n", viCn, vpCn->Value);
+        vpCn = vpCn->Next;
+    }
+
+
+}
+*/
+
+
+
 int main ()
 {
     
@@ -775,7 +781,7 @@ int main ()
 
 
     printf ("\n");
-    funcintDListCreateFIFO (&dliList1, 5);
+    funcintDListCreateFIFO (&dliList1, 0);
     printf ("\n\n");
 
 
@@ -788,110 +794,6 @@ int main ()
 
     printf ("Displaying the DList in reversed:\n");
     funcintDListDisplayReversed (dliList1);
-    printf ("\n\n");
-
-
-
-
-    printf ("Sorting Reversed the DList:\n");
-    funcintDListSortReversed (&dliList1);
-    printf ("\n\n");
-
-
-
-    printf ("Displaying the DList after Sorting !!!\n");
-    funcintDListDisplay (dliList1);
-    printf ("\n\n");
-
-
-    printf ("The count of number 6 is: %d.", funcintDListCount (dliList1, 6));
-    printf ("\n\n");
-
-
-
-    printf ("adding by index:\n");
-    funcintDListInsert (&dliList1, 0, 0);
-    funcintDListInsert (&dliList1, 1, 1);
-    printf ("\n\n");
-    
-
-
-    printf ("Displaying the DList:\n");
-    funcintDListDisplay (dliList1);
-    printf ("\n\n");
-
-
-
-    printf ("Displaying the DList in reversed:\n");
-    funcintDListDisplayReversed (dliList1);
-    printf ("\n\n");
-
-
-    int viValue;
-    printf ("Display at:\n");
-    viValue = funcintDListat (dliList1, 0);
-    printf ("the value at index 0 is: %d.\n", viValue);
-    viValue = funcintDListat (dliList1, -1);
-    printf ("the value at index -1 is: %d.\n", viValue);
-    printf ("\n\n");
-
-
-    int viIndex;
-    printf ("Return the First Index: \n");
-    viIndex = funcintDListIndex (dliList1, 0);
-    printf ("Number 51 first appeared at index: %d.\n", viIndex);
-    viIndex = funcintDListIndex (dliList1, 1);
-    printf ("Number 52 first appeared at index: %d.\n", viIndex);
-    printf ("\n\n");
-
-
-    printf ("Modify at:");
-    funcintDListModify (&dliList1, -1, 100);
-    funcintDListModify (&dliList1, -2, 101);
-    printf ("\n\n");
-
-
-
-    printf ("Displaying the DList:\n");
-    funcintDListDisplay (dliList1);
-    printf ("\n\n");
-
-
-
-    printf ("Removing by index:\n");
-    funcintDListRemove (&dliList1, 0);
-    funcintDListRemove (&dliList1, 0);
-    printf ("\n\n");
-
-
-
-    printf ("Displaying the DList:\n");
-    funcintDListDisplay (dliList1);
-    printf ("\n\n");
-    
-
-
-    printf ("Removing all DNodes:\n");
-    funcintDListClear (&dliList1);
-    printf ("\n\n");
-
-
-
-    printf ("Displaying the DList:\n");
-    funcintDListDisplay (dliList1);
-    printf ("\n\n");
-
-
-
-    printf ("adding by index:\n");
-    funcintDListInsert (&dliList1, 0, 0);
-    funcintDListInsert (&dliList1, 1, 1);
-    printf ("\n\n");
-
-
-
-    printf ("Displaying the DList:\n");
-    funcintDListDisplay (dliList1);
     printf ("\n\n");
 
 
