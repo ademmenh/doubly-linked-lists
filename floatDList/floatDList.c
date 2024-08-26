@@ -252,19 +252,19 @@ void funcfloatDListInsertEnd (floatDList *pDList, float value)
 void funcfloatDListInsertBegin (floatDList *pDList, float value)
 {
 
-    floatDNode *vp;
+    floatDNode *vpNew;
     floatDNode *vpTemp;
 
-    vp = funcfloatDNodeCreate (value);
+    vpNew = funcfloatDNodeCreate (value);
     if ( (*pDList).length==0 )
     {
-        (*pDList).H = vp;
-        (*pDList).T = vp;
+        (*pDList).H = vpNew;
+        (*pDList).T = vpNew;
     }
     else
     {
         vpTemp = (*pDList).H;
-        (*pDList).H = vp;
+        (*pDList).H = vpNew;
 
         (*pDList).H->Next = vpTemp;
         vpTemp->Previous = (*pDList).H;
@@ -277,30 +277,30 @@ void funcfloatDListInsertBegin (floatDList *pDList, float value)
 */
 
 /*
-void funcfloatDListInsertEnd (floatDList *pfloatDList, float value)
+void funcfloatDListInsertEnd (floatDList *pDList, float value)
 {
 
-    floatDNode *vp;
+    floatDNode *vpNew;
     floatDNode *vpTemp;
 
-    vp = funcfloatDNodeCreate(value);
-    if ( (*pfloatDList).length==0 )
+    vpNew = funcfloatDNodeCreate(value);
+    if ( (*pDList).length==0 )
     {
-        (*pfloatDList).H = vp;
-        (*pfloatDList).T = vp;
+        (*pDList).H = vpNew;
+        (*pDList).T = vpNew;
     }
     else
     {
-        vpTemp = (*pfloatDList).T;
-        (*pfloatDList).T = vp;
+        vpTemp = (*pDList).T;
+        (*pDList).T = vpNew;
 
-        (*pfloatDList).T->Previous = vpTemp;
-        vpTemp->Next = (*pfloatDList).T;
+        (*pDList).T->Previous = vpTemp;
+        vpTemp->Next = (*pDList).T;
     }
 
 
 
-    (*pfloatDList).length++;
+    (*pDList).length++;
 }
 */
 
@@ -361,7 +361,7 @@ int funcfloatDListCount (floatDList pDList, float value)
     return viFound;
 }
 
-void funcintDListModify (floatDList *pDList, int index, float value)
+void funcfloatDListModify (floatDList *pDList, int index, float value)
 {
 
     floatDNode *vpNew = funcfloatDNodePointer (*pDList, index);
@@ -425,12 +425,12 @@ void funcfloatDListRemove (floatDList *pDList, int index)
     (*pDList).length--;
 }
 
-void funcintDListRemoveBegin (floatDList *pDList)
+void funcfloatDListRemoveBegin (floatDList *pDList)
 {
     funcfloatDListRemove (pDList, 0);  // &(*pDList)
 }
 
-void funcintDListRemoveEnd (floatDList *pDList)
+void funcfloatDListRemoveEnd (floatDList *pDList)
 {
     funcfloatDListRemove (pDList, pDList->length-1);  // &(*pDList), (*pDList).length-1
 }
@@ -545,7 +545,7 @@ void funcfloatDListClear (floatDList *pDList)
 
 
 
-int funcQuerryfloat ()
+float funcQuerryfloat ()
 {
 
     float vfNum1;
@@ -555,7 +555,7 @@ int funcQuerryfloat ()
     return vfNum1;
 }
 
-void funcintDListCreateFIFO (floatDList *pDList, int DListSize)
+void funcfloatDListCreateFIFO (floatDList *pDList, int DListSize)
 {
 
     float vfValue;
@@ -567,7 +567,7 @@ void funcintDListCreateFIFO (floatDList *pDList, int DListSize)
     }
 }
 
-void funcintDListCreateLIFO (floatDList *pDList, int DListSize)
+void funcfloatDListCreateLIFO (floatDList *pDList, int DListSize)
 {
 
     float vfValue;
@@ -580,7 +580,7 @@ void funcintDListCreateLIFO (floatDList *pDList, int DListSize)
 }
 
 
-void funcintDListSort (floatDList *pDList)
+void funcfloatDListSort (floatDList *pDList)
 {
     floatDNode *vpCn1, *vpCn2, *vpMin;
     float vfMin;
@@ -609,7 +609,7 @@ void funcintDListSort (floatDList *pDList)
     }
 }
 
-void funcintDListSortReversed (floatDList *pDList)
+void funcfloatDListSortReversed (floatDList *pDList)
 {
     floatDNode *vpCn1, *vpCn2, *vpMin;
     float vfMin;
@@ -639,7 +639,7 @@ void funcintDListSortReversed (floatDList *pDList)
 }
 
 
-void funcintDListDisplay (floatDList DList)
+void funcfloatDListDisplay (floatDList DList)
 {
 
     floatDNode *vpCn;
@@ -685,7 +685,7 @@ void funcfloatDListDisplay (floatDList DList)
 }
 */
 
-void funcintDListDisplayReversed (floatDList DList)
+void funcfloatDListDisplayReversed (floatDList DList)
 {
 
     floatDNode *vpCn;
@@ -709,7 +709,7 @@ void funcintDListDisplayReversed (floatDList DList)
 }
 
 /*
-void funcintDListDisplayReversed (floatDList DList)
+void funcfloatDListDisplayReversed (floatDList DList)
 {
     floatDNode *vpCn;
     int viCn;
