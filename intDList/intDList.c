@@ -594,6 +594,40 @@ void funcintDListClear (intDList *pDList)
 
 
 
+intDList funcintDListDifference (intDList DList1, intDList DList2)
+{
+    intDList vdlList;
+    funcintDListInit (&vdlList);
+
+    intDNode *vpCn1, *vpCn2;
+    int viHolder1;
+
+    vpCn1 = DList1.H;
+
+    while ( vpCn1!=NULL )
+    {
+        viHolder1 = vpCn1->Value;
+
+        vpCn2 = DList2.H;
+        while ( vpCn2!=NULL )
+        {
+            if ( vpCn2->Value==viHolder1 )
+            {
+                break;
+            }
+
+            vpCn2 = vpCn2->Next;
+        }
+
+        funcintDListInsertEnd (&vdlList, viHolder1);
+        vpCn1 = vpCn1->Next;
+    }
+
+    return vdlList;
+}
+
+
+
 int funcQuerryInt ()
 {
 
@@ -783,5 +817,33 @@ void funcintDListDisplayReversed (intDList DList)
 
 int main ()
 {
+
+    intDList vdlList1, vdlList2, vdlList3;
+    funcintDListInit (&vdlList1);
+    funcintDListInit (&vdlList2);
+    funcintDListInit (&vdlList3);
+
+    printf ("creating list1:\n");
+    funcintDListCreateFIFO (&vdlList1, 5);
+    printf ("\n\n");
+
+    printf ("Displaying list:\n");
+    funcintDListDisplay (vdlList1);
+    printf ("\n\n");
+
+    printf ("create list2:\n");
+    funcintDListCreateFIFO (&vdlList2, 5);
+    printf ("\n\n");
+
+    printf ("Displaying list:\n");
+    funcintDListDisplay (vdlList2);
+    printf ("\n\n");
+
+
+
+    vdlList3 = funcintDListDifference (vdlList1, vdlList2);
+    printf ("Displaying list:\n");
+    funcintDListDisplay (vdlList3);
+    printf ("\n\n");
     return 0;
 }
