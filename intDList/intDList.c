@@ -601,25 +601,32 @@ intDList funcintDListDifference (intDList DList1, intDList DList2)
 
     intDNode *vpCn1, *vpCn2;
     int viHolder1;
+    bool vbFound;
 
     vpCn1 = DList1.H;
 
     while ( vpCn1!=NULL )
     {
         viHolder1 = vpCn1->Value;
+        vbFound = false;
 
         vpCn2 = DList2.H;
         while ( vpCn2!=NULL )
         {
             if ( vpCn2->Value==viHolder1 )
             {
+                vbFound = true;
                 break;
             }
 
             vpCn2 = vpCn2->Next;
         }
 
-        funcintDListInsertEnd (&vdlList, viHolder1);
+        if ( !vbFound )
+        {
+            funcintDListInsertEnd (&vdlList, viHolder1);
+        }
+
         vpCn1 = vpCn1->Next;
     }
 
