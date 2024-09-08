@@ -656,6 +656,42 @@ intDList funcintDListUnion (intDList DList1, intDList DList2)
     return vdlList;
 }
 
+intDList funcintDListIntersection (intDList DList1, intDList DList2)
+{
+    intDList vdlList;
+    funcintDListInit (&vdlList);
+
+    intDNode *vpCn1, *vpCn2;
+    bool vbFound;
+    int viHolder;
+
+    vpCn1 = DList1.H;
+    while ( vpCn1!=NULL )
+    {
+        viHolder = vpCn1->Value;
+
+        vbFound = false;
+        vpCn2 = DList2.H;
+        while ( vpCn2!=NULL )
+        {
+            if ( viHolder==vpCn2->Value )
+            {
+                vbFound = true;
+                break;
+            }
+            vpCn2 = vpCn2->Next;
+        }
+
+        if ( vbFound )
+        {
+            funcintDListInsertEnd (&vdlList, viHolder);
+        }
+        vpCn1 = vpCn1->Next;
+    }
+
+    return vdlList;
+}
+
 intDList funcintDListDifference (intDList DList1, intDList DList2)
 {
     intDList vdlList;
@@ -910,7 +946,7 @@ int main ()
 
 
 
-    vdlList3 = funcintDListUnion (vdlList1, vdlList2);
+    vdlList3 = funcintDListIntersection (vdlList1, vdlList2);
     printf ("Displaying list:\n");
     funcintDListDisplay (vdlList3);
     printf ("\n\n");
