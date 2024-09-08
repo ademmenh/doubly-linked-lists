@@ -733,6 +733,22 @@ intDList funcintDListDifference (intDList DList1, intDList DList2)
 }
 
 
+// requires optimization
+intDList funcintDListSymmetricDifference (intDList DList1, intDList DList2)
+{
+    intDList vdlIntersection, vdlUnion, vdlSymmDiff;
+    funcintDListInit (&vdlIntersection);
+    funcintDListInit (&vdlUnion);
+    funcintDListInit (&vdlSymmDiff);
+
+    vdlIntersection = funcintDListIntersection (DList1, DList2);
+    vdlUnion = funcintDListUnion (DList1, DList2);
+    vdlSymmDiff = funcintDListDifference (vdlUnion, vdlIntersection);
+    
+    return vdlSymmDiff;
+}
+
+
 
 int funcQuerryInt ()
 {
@@ -947,7 +963,7 @@ int main ()
 
 
 
-    vdlList3 = funcintDListIntersection (vdlList1, vdlList2);
+    vdlList3 = funcintDListSymmetricDifference (vdlList1, vdlList2);
     printf ("Displaying list:\n");
     funcintDListDisplay (vdlList3);
     printf ("\n\n");
