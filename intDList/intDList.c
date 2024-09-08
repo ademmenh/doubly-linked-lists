@@ -594,6 +594,68 @@ void funcintDListClear (intDList *pDList)
 
 
 
+intDList funcintDListUnion (intDList DList1, intDList DList2)
+{
+    intDList vdlList;
+    funcintDListInit (&vdlList);
+
+    intDNode *vpCn1, *vpCn2, *vpCn3;
+    int viHolder;
+    bool vbFound;
+
+    vpCn1 = DList1.H;
+    while ( vpCn1!=NULL )
+    {
+        viHolder = vpCn1->Value;
+
+        vbFound = false;
+        vpCn3 = vdlList.H;
+        while ( vpCn3!=NULL )
+        {
+            if ( viHolder == vpCn3->Value )
+            {
+                vbFound = true;
+            }
+
+            vpCn3 = vpCn3->Next;
+        }
+
+        if (!vbFound)
+        {
+            funcintDListInsertEnd (&vdlList, viHolder);
+        }
+
+        vpCn1 = vpCn1->Next;
+    }
+
+    vpCn2 = DList2.H;
+    while ( vpCn2!=NULL )
+    {
+        viHolder = vpCn2->Value;
+
+        vbFound = false;
+        vpCn3 = vdlList.H;
+        while ( vpCn3!=NULL )
+        {
+            if ( viHolder == vpCn3->Value )
+            {
+                vbFound = true;
+            }
+
+            vpCn3 = vpCn3->Next;
+        }
+
+        if (!vbFound)
+        {
+            funcintDListInsertEnd (&vdlList, viHolder);
+        }
+        
+        vpCn2 = vpCn2->Next;
+    }
+
+    return vdlList;
+}
+
 intDList funcintDListDifference (intDList DList1, intDList DList2)
 {
     intDList vdlList;
@@ -848,7 +910,7 @@ int main ()
 
 
 
-    vdlList3 = funcintDListDifference (vdlList1, vdlList2);
+    vdlList3 = funcintDListUnion (vdlList1, vdlList2);
     printf ("Displaying list:\n");
     funcintDListDisplay (vdlList3);
     printf ("\n\n");
