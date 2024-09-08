@@ -593,7 +593,6 @@ void funcintDListClear (intDList *pDList)
 */
 
 
-// requires optimization
 intDList funcintDListUnion (intDList DList1, intDList DList2)
 {
     intDList vdlList;
@@ -732,8 +731,7 @@ intDList funcintDListDifference (intDList DList1, intDList DList2)
     return vdlList;
 }
 
-
-// requires optimization
+/*
 intDList funcintDListSymmetricDifference (intDList DList1, intDList DList2)
 {
     intDList vdlIntersection, vdlUnion, vdlSymmDiff;
@@ -746,6 +744,70 @@ intDList funcintDListSymmetricDifference (intDList DList1, intDList DList2)
     vdlSymmDiff = funcintDListDifference (vdlUnion, vdlIntersection);
     
     return vdlSymmDiff;
+}
+*/
+intDList funcintDListSymmetricDifference (intDList DList1, intDList DList2)
+{
+    intDList vdlList;
+    funcintDListInit (&vdlList);
+
+    intDNode *vpCn1, *vpCn2;
+    int viHolder;
+    bool vbFound;
+
+    vpCn1 = DList1.H;
+    while ( vpCn1!=NULL )
+    {
+        viHolder = vpCn1->Value;
+
+        vbFound = false; 
+        vpCn2 = DList2.H;
+        while ( vpCn2!=NULL )
+        {
+            if ( viHolder==vpCn2->Value )
+            {
+                vbFound = true;
+                break;
+            }
+
+            vpCn2 = vpCn2->Next;
+        }
+
+        if ( !vbFound )
+        {
+            funcintDListInsertEnd (&vdlList, viHolder);
+        }
+
+        vpCn1 = vpCn1->Next;
+    }
+
+    vpCn1 = DList2.H;
+    while ( vpCn1!=NULL )
+    {
+        viHolder = vpCn1->Value;
+
+        vbFound = false; 
+        vpCn2 = DList1.H;
+        while ( vpCn2!=NULL )
+        {
+            if ( viHolder==vpCn2->Value )
+            {
+                vbFound = true;
+                break;
+            }
+
+            vpCn2 = vpCn2->Next;
+        }
+
+        if ( !vbFound )
+        {
+            funcintDListInsertEnd (&vdlList, viHolder);
+        }
+
+        vpCn1 = vpCn1->Next;
+    }
+
+    return vdlList;
 }
 
 
