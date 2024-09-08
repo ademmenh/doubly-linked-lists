@@ -593,7 +593,7 @@ void funcintDListClear (intDList *pDList)
 */
 
 
-
+// requires optimization
 intDList funcintDListUnion (intDList DList1, intDList DList2)
 {
     intDList vdlList;
@@ -612,9 +612,10 @@ intDList funcintDListUnion (intDList DList1, intDList DList2)
         vpCn3 = vdlList.H;
         while ( vpCn3!=NULL )
         {
-            if ( viHolder == vpCn3->Value )
+            if ( viHolder==vpCn3->Value )
             {
                 vbFound = true;
+                break;
             }
 
             vpCn3 = vpCn3->Next;
