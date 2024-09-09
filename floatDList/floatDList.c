@@ -683,6 +683,71 @@ floatDList funcfloatDListDifference (floatDList DList1, floatDList DList2)
     return vdlList;
 }
 
+floatDList funcfloatDListSymmetricDifference (floatDList DList1, floatDList DList2)
+{
+    floatDList vdlList;
+    funcfloatDListInit (&vdlList);
+
+    floatDNode *vpCn1, *vpCn2;
+    float vfHolder;
+    bool vbFound;
+
+    vpCn1 = DList1.H;
+    while ( vpCn1!=NULL )
+    {
+        vfHolder = vpCn1->Value;
+
+        vbFound = false; 
+        vpCn2 = DList2.H;
+        while ( vpCn2!=NULL )
+        {
+            if ( vfHolder==vpCn2->Value )
+            {
+                vbFound = true;
+                break;
+            }
+
+            vpCn2 = vpCn2->Next;
+        }
+
+        if ( !vbFound )
+        {
+            funcfloatDListInsertEnd (&vdlList, vfHolder);
+        }
+
+        vpCn1 = vpCn1->Next;
+    }
+
+    vpCn1 = DList2.H;
+    while ( vpCn1!=NULL )
+    {
+        vfHolder = vpCn1->Value;
+
+        vbFound = false; 
+        vpCn2 = DList1.H;
+        while ( vpCn2!=NULL )
+        {
+            if ( vfHolder==vpCn2->Value )
+            {
+                vbFound = true;
+                break;
+            }
+
+            vpCn2 = vpCn2->Next;
+        }
+
+        if ( !vbFound )
+        {
+            funcfloatDListInsertEnd (&vdlList, vfHolder);
+        }
+
+        vpCn1 = vpCn1->Next;
+    }
+
+    return vdlList;
+}
+
+
 
 
 float funcQuerryfloat ()
@@ -897,7 +962,7 @@ int main ()
 
 
 
-    vdlList3 = funcfloatDListDifference (vdlList1, vdlList2);
+    vdlList3 = funcfloatDListSymmetricDifference (vdlList1, vdlList2);
     printf ("Displaying list:\n");
     funcfloatDListDisplay (vdlList3);
     printf ("\n\n");
