@@ -305,7 +305,7 @@ void funccharDListInsertEnd (charDList *pDList, char value)
 */
 
 
-char funcfloatDListat (charDList pDList, int index)
+char funccharDListat (charDList pDList, int index)
 {
 
     charDNode *vpCn;
@@ -319,7 +319,7 @@ char funcfloatDListat (charDList pDList, int index)
     return vp->Value;
 }
 
-int funcfloatDListIndex (charDList pDList, char value)
+int funccharDListIndex (charDList pDList, char value)
 {
 
     charDNode *vpCn;
@@ -340,7 +340,7 @@ int funcfloatDListIndex (charDList pDList, char value)
     exit(1);
 }
 
-int funcfloatDListCount (charDList pDList, char value)
+int funccharDListCount (charDList pDList, char value)
 {
     
     charDNode *vpCn = pDList.H;
@@ -545,14 +545,83 @@ void funccharDListClear (charDList *pDList)
 
 
 
+charDList funccharDListUnion (charDList DList1, charDList DList2)
+{
+    charDList vdlList;
+    funccharDListInit (&vdlList);
+
+    charDNode *vpCn1, *vpCn2, *vpCn3;
+    char vcHolder;
+    bool vbFound;
+
+    vpCn1 = DList1.H;
+    while ( vpCn1!=NULL )
+    {
+        vcHolder = vpCn1->Value;
+
+        vbFound = false;
+        vpCn3 = vdlList.H;
+        while ( vpCn3!=NULL )
+        {
+            if ( vcHolder==vpCn3->Value )
+            {
+                vbFound = true;
+                break;
+            }
+
+            vpCn3 = vpCn3->Next;
+        }
+
+        if (!vbFound)
+        {
+            funccharDListInsertEnd (&vdlList, vcHolder);
+        }
+
+        vpCn1 = vpCn1->Next;
+    }
+
+    vpCn2 = DList2.H;
+    while ( vpCn2!=NULL )
+    {
+        vcHolder = vpCn2->Value;
+
+        vbFound = false;
+        vpCn3 = vdlList.H;
+        while ( vpCn3!=NULL )
+        {
+            if ( vcHolder == vpCn3->Value )
+            {
+                vbFound = true;
+            }
+
+            vpCn3 = vpCn3->Next;
+        }
+
+        if (!vbFound)
+        {
+            funccharDListInsertEnd (&vdlList, vcHolder);
+        }
+        
+        vpCn2 = vpCn2->Next;
+    }
+
+    return vdlList;
+}
+
+
+
 char funcQuerrychar ()
 {
 
-    char vfNum1;
-    printf ("Enter the value: ");
-    scanf ("%c", &vfNum1);
+    char vcChar, vcBuffer;
 
-    return vfNum1;
+    printf ("Enter the value: ");
+    vcChar = getchar();
+    vcBuffer = vcChar;
+    while (vcBuffer!='\n')
+    {vcBuffer = getchar();}
+
+    return vcChar;
 }
 
 void funccharDListCreateFIFO (charDList *pDList, int DListSize)
@@ -674,5 +743,35 @@ void funccharDListDisplayReversed (charDList DList)
 
 int main ()
 {
+    charDList vdlList1, vdlList2, vdlList3;
+    funccharDListInit (&vdlList1);
+    funccharDListInit (&vdlList2);
+    funccharDListInit (&vdlList3);
+
+    printf ("creating list1:\n");
+    funccharDListCreateFIFO (&vdlList1, 5);
+    printf ("\n\n");
+
+    printf ("Displaying list:\n");
+    funccharDListDisplay (vdlList1);
+    printf ("\n\n");
+
+    printf ("create list2:\n");
+    funccharDListCreateFIFO (&vdlList2, 5);
+    printf ("\n\n");
+
+    printf ("Displaying list:\n");
+    funccharDListDisplay (vdlList2);
+    printf ("\n\n");
+
+
+
+    vdlList3 = funccharDListUnion (vdlList1, vdlList2);
+    printf ("Displaying list:\n");
+    funccharDListDisplay (vdlList3);
+    printf ("\n\n");
+
+
+
     return 0;
 }
