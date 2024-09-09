@@ -683,6 +683,69 @@ charDList funccharDListDifference (charDList DList1, charDList DList2)
     return vdlList;
 }
 
+charDList funccharDListSymmetricDifference (charDList DList1, charDList DList2)
+{
+    charDList vdlList;
+    funccharDListInit (&vdlList);
+
+    charDNode *vpCn1, *vpCn2;
+    char vcHolder;
+    bool vbFound;
+
+    vpCn1 = DList1.H;
+    while ( vpCn1!=NULL )
+    {
+        vcHolder = vpCn1->Value;
+
+        vbFound = false; 
+        vpCn2 = DList2.H;
+        while ( vpCn2!=NULL )
+        {
+            if ( vcHolder==vpCn2->Value )
+            {
+                vbFound = true;
+                break;
+            }
+
+            vpCn2 = vpCn2->Next;
+        }
+
+        if ( !vbFound )
+        {
+            funccharDListInsertEnd (&vdlList, vcHolder);
+        }
+
+        vpCn1 = vpCn1->Next;
+    }
+
+    vpCn1 = DList2.H;
+    while ( vpCn1!=NULL )
+    {
+        vcHolder = vpCn1->Value;
+
+        vbFound = false; 
+        vpCn2 = DList1.H;
+        while ( vpCn2!=NULL )
+        {
+            if ( vcHolder==vpCn2->Value )
+            {
+                vbFound = true;
+                break;
+            }
+
+            vpCn2 = vpCn2->Next;
+        }
+
+        if ( !vbFound )
+        {
+            funccharDListInsertEnd (&vdlList, vcHolder);
+        }
+
+        vpCn1 = vpCn1->Next;
+    }
+
+    return vdlList;
+}
 
 
 
@@ -842,7 +905,7 @@ int main ()
 
 
 
-    vdlList3 = funccharDListDifference (vdlList1, vdlList2);
+    vdlList3 = funccharDListSymmetricDifference (vdlList1, vdlList2);
     printf ("Displaying list:\n");
     funccharDListDisplay (vdlList3);
     printf ("\n\n");
