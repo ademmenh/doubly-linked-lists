@@ -545,6 +545,73 @@ void funcfloatDListClear (floatDList *pDList)
 
 
 
+floatDList funcfloatDListUnion (floatDList DList1, floatDList DList2)
+{
+    floatDList vdlList;
+    funcfloatDListInit (&vdlList);
+
+    floatDNode *vpCn1, *vpCn2, *vpCn3;
+    float vfHolder;
+    bool vbFound;
+
+    vpCn1 = DList1.H;
+    while ( vpCn1!=NULL )
+    {
+        vfHolder = vpCn1->Value;
+
+        vbFound = false;
+        vpCn3 = vdlList.H;
+        while ( vpCn3!=NULL )
+        {
+            if ( vfHolder==vpCn3->Value )
+            {
+                vbFound = true;
+                break;
+            }
+
+            vpCn3 = vpCn3->Next;
+        }
+
+        if (!vbFound)
+        {
+            funcfloatDListInsertEnd (&vdlList, vfHolder);
+        }
+
+        vpCn1 = vpCn1->Next;
+    }
+
+    vpCn2 = DList2.H;
+    while ( vpCn2!=NULL )
+    {
+        vfHolder = vpCn2->Value;
+
+        vbFound = false;
+        vpCn3 = vdlList.H;
+        while ( vpCn3!=NULL )
+        {
+            if ( vfHolder == vpCn3->Value )
+            {
+                vbFound = true;
+            }
+
+            vpCn3 = vpCn3->Next;
+        }
+
+        if (!vbFound)
+        {
+            funcfloatDListInsertEnd (&vdlList, vfHolder);
+        }
+        
+        vpCn2 = vpCn2->Next;
+    }
+
+    return vdlList;
+}
+
+
+
+
+
 float funcQuerryfloat ()
 {
 
@@ -733,5 +800,36 @@ void funcfloatDListDisplayReversed (floatDList DList)
 
 int main ()
 {
+
+    floatDList vdlList1, vdlList2, vdlList3;
+    funcfloatDListInit (&vdlList1);
+    funcfloatDListInit (&vdlList2);
+    funcfloatDListInit (&vdlList3);
+
+    printf ("creating list1:\n");
+    funcfloatDListCreateFIFO (&vdlList1, 5);
+    printf ("\n\n");
+
+    printf ("Displaying list:\n");
+    funcfloatDListDisplay (vdlList1);
+    printf ("\n\n");
+
+    printf ("create list2:\n");
+    funcfloatDListCreateFIFO (&vdlList2, 5);
+    printf ("\n\n");
+
+    printf ("Displaying list:\n");
+    funcfloatDListDisplay (vdlList2);
+    printf ("\n\n");
+
+
+
+    vdlList3 = funcfloatDListUnion (vdlList1, vdlList2);
+    printf ("Displaying list:\n");
+    funcfloatDListDisplay (vdlList3);
+    printf ("\n\n");
+
+
+
     return 0;
 }
