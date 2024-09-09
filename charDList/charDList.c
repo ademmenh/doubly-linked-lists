@@ -608,6 +608,42 @@ charDList funccharDListUnion (charDList DList1, charDList DList2)
     return vdlList;
 }
 
+charDList funccharDListIntersection (charDList DList1, charDList DList2)
+{
+    charDList vdlList;
+    funccharDListInit (&vdlList);
+
+    charDNode *vpCn1, *vpCn2;
+    bool vbFound;
+    char vcHolder;
+
+    vpCn1 = DList1.H;
+    while ( vpCn1!=NULL )
+    {
+        vcHolder = vpCn1->Value;
+
+        vbFound = false;
+        vpCn2 = DList2.H;
+        while ( vpCn2!=NULL )
+        {
+            if ( vcHolder==vpCn2->Value )
+            {
+                vbFound = true;
+                break;
+            }
+            vpCn2 = vpCn2->Next;
+        }
+
+        if ( vbFound )
+        {
+            funccharDListInsertEnd (&vdlList, vcHolder);
+        }
+        vpCn1 = vpCn1->Next;
+    }
+
+    return vdlList;
+}
+
 
 
 char funcQuerrychar ()
@@ -766,7 +802,7 @@ int main ()
 
 
 
-    vdlList3 = funccharDListUnion (vdlList1, vdlList2);
+    vdlList3 = funccharDListIntersection (vdlList1, vdlList2);
     printf ("Displaying list:\n");
     funccharDListDisplay (vdlList3);
     printf ("\n\n");
