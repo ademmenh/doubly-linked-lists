@@ -86,54 +86,7 @@ intDNode* funcintDNodePointer (intDList pDList, int index)
     }
 }
 
-/*
-intDNode* funcintDNodePointerTesting (intDList DList, int index)
-{
 
-    intDNode *vpCn;
-    int viCn;
-
-
-    if ( 0<=index )
-    {
-        
-        if ( DList.length-1<index )
-        {
-            printf ("The index is out the range of the DList !!!");
-            return;
-        }
-        else
-        {
-            vpCn = DList.H;
-            for ( viCn=0; viCn<index; viCn++ )
-            {
-                vpCn = vpCn->Next;
-            }
-
-            return vpCn;
-        }
-    }
-    else
-    {
-        if ( DList.length<-index )
-        {
-            printf ("The index is out the range of the DList !!!");
-            return;
-        }
-        else
-        {
-            vpCn = DList.T;
-            for ( viCn=-1; index<viCn; viCn-- )
-            {
-                vpCn = vpCn->Previous;
-            }
-
-            return vpCn;
-        }
-    }
-
-}
-*/
 
 void funcintDNodeFree (intDNode *pDNode)
 {
