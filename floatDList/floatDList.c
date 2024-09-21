@@ -1,7 +1,19 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#ifndef floatDListisImported
+    #define floatDListisImported
+#endif
+
+#ifndef _STDBOOL_H
+    #include <stdbool.h>
+#endif
+
+#ifndef _STDIO_H
+    #include <stdio.h>
+#endif
+
+#ifndef _STDLIB_H
+    #include <stdlib.h>
+#endif
 
 
 

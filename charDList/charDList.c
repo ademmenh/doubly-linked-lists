@@ -1,7 +1,19 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#ifndef charDListisImported
+    #define charDListisImported
+#endif
+
+#ifndef _STDBOOL_H
+    #include <stdbool.h>
+#endif
+
+#ifndef _STDIO_H
+    #include <stdio.h>
+#endif
+
+#ifndef _STDLIB_H
+    #include <stdlib.h>
+#endif
 
 
 
@@ -755,7 +767,7 @@ char funcQuerrychar ()
     char vcChar, vcBuffer;
 
     printf ("Enter the value: ");
-    vcChar = getchar();
+    vcChar = getchar(); // fgetc (stdin)
     vcBuffer = vcChar;
     while (vcBuffer!='\n')
     {vcBuffer = getchar();}

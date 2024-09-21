@@ -1,8 +1,19 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#ifndef intDListisImported
+    #define intDListisImported
+#endif
 
+#ifndef _STDBOOL_H
+    #include <stdbool.h>
+#endif
+
+#ifndef _STDIO_H
+    #include <stdio.h>
+#endif
+
+#ifndef _STDLIB_H
+    #include <stdlib.h>
+#endif
 
 
 
@@ -46,7 +57,7 @@ intDNode* funcintDNodeCreate (int value)
     return vpNew;
 }
 
-intDNode* funcintDNodePointer (intDList pDList, int index)
+intDNode* funcintDNodePointer (intDList DList, int index)
 {
     intDNode *vpCn;
     int viCn;
@@ -54,13 +65,13 @@ intDNode* funcintDNodePointer (intDList pDList, int index)
 
     if ( 0<=index )
     {
-        if ( pDList.length-1<index )
+        if ( DList.length-1<index )
         {
             printf ("The index is out the range of the DList !!!");
             exit (1);
         }
 
-        vpCn = pDList.H;
+        vpCn = DList.H;
         for ( viCn=0; viCn<index; viCn++ )
         {
             vpCn = vpCn->Next;
@@ -70,13 +81,13 @@ intDNode* funcintDNodePointer (intDList pDList, int index)
     }
     else
     {
-        if ( pDList.length<-index )
+        if ( DList.length<-index )
         {
             printf ("The index is out the range of the DList !!!");
             exit (1);
         }
 
-        vpCn = pDList.T;
+        vpCn = DList.T;
         for ( viCn=-1; index<viCn; viCn-- )
         {
             vpCn = vpCn->Previous;
@@ -85,8 +96,6 @@ intDNode* funcintDNodePointer (intDList pDList, int index)
         return vpCn;
     }
 }
-
-
 
 void funcintDNodeFree (intDNode *pDNode)
 {
