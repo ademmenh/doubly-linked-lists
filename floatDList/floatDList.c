@@ -1,6 +1,6 @@
 
-#ifndef floatDListisImported
-    #define floatDListisImported
+#ifndef _floatDLIST_C
+    #define _floatDLIST_C
 #endif
 
 #ifndef _STDBOOL_H

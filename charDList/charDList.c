@@ -1,6 +1,6 @@
 
-#ifndef charDListisImported
-    #define charDListisImported
+#ifndef _charDLIST_C
+    #define _charDLIST_C
 #endif
 
 #ifndef _STDBOOL_H
