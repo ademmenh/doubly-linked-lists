@@ -38,3 +38,22 @@ typedef struct stringDList
 } stringDList;
 
 
+
+
+
+void funcstringDNodeInit (stringDNode *pDNode)
+{
+    funcstringInit (&(pDNode->Value));
+    pDNode->Next = NULL;
+    pDNode->Previous = NULL;
+}
+
+void funcstringDNodeFree (stringDNode *pDNode)
+{
+    funcstringClear (&(pDNode->Value));
+    pDNode->Next = NULL;
+    pDNode->Previous = NULL;
+    free (pDNode);
+}
+
+
