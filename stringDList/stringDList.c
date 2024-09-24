@@ -48,6 +48,22 @@ void funcstringDNodeInit (stringDNode *pDNode)
     pDNode->Previous = NULL;
 }
 
+stringDNode* funcstringDNodeCreate (string value)
+{
+
+    stringDNode *vpNew = (stringDNode *) malloc(sizeof(stringDNode));
+    if ( vpNew==NULL )
+    {
+        printf ("The Allocation has failled !!!");
+        exit (1);
+    }
+
+    funcstringDNodeInit (vpNew);
+    vpNew->Value = value;
+
+    return vpNew;
+}
+
 void funcstringDNodeFree (stringDNode *pDNode)
 {
     funcstringClear (&(pDNode->Value));
