@@ -113,3 +113,22 @@ void funcstringDNodeFree (stringDNode *pDNode)
 }
 
 
+
+void funcstringDListInit (stringDList *pDList)
+{
+    pDList->H = NULL;
+    pDList->T = NULL;
+    pDList->length = 0;
+}
+
+bool funcstringDListEmpty (stringDList pDList)
+{
+    if ( pDList.length==0 )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
