@@ -255,14 +255,26 @@ void funcstringDListInsert (stringDList *pDList, int index, string value)
 }
 
 
-void funcstringDListInsertBegin (stringDList *pDList, int value)
+void funcstringDListInsertBegin (stringDList *pDList, string value)
 {
-    funcstirngDListInsert (pDList, 0, value);   //&(*pintDList)
+    funcstringDListInsert (pDList, 0, value);   //&(*pintDList)
 }
 
-void funcstringDListInsertEnd (stringDList *pDList, int value)
+void funcstringDListInsertEnd (stringDList *pDList, string value)
 {
-    funcstirngDListInsert (pDList, -1, value);     // &(*pDList), pDList->length
+    funcstringDListInsert (pDList, -1, value);     // &(*pDList), pDList->length
 }
 
+string funcstringDListat (stringDList DList, int index)
+{
 
+    stringDNode *vpCn;
+    stringDNode *vp;
+    int viCn = 0;
+
+
+
+    vp = funcstringDNodePointer (DList, index);
+
+    return vp->Value;
+}
