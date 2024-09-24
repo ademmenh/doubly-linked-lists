@@ -278,3 +278,24 @@ string funcstringDListat (stringDList DList, int index)
 
     return vp->Value;
 }
+
+int funcstringDListIndex (stringDList DList, string value)
+{
+
+    stringDNode *vpCn;
+    int viCn;
+
+    vpCn = DList.H;
+    for ( viCn=0; viCn<DList.length; viCn++ )
+    {
+        if ( funcstringCompare(vpCn->Value, value) )
+        {
+            return viCn;
+        }
+        
+        vpCn = vpCn->Next;
+    }
+
+    printf ("The Number %d do not exist in the DList !!!", value);
+    exit(1);
+}
