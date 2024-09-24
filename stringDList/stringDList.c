@@ -132,3 +132,137 @@ bool funcstringDListEmpty (stringDList pDList)
         return false;
     }
 }
+
+void funcstringDListInsert (stringDList *pDList, int index, string value)
+{
+
+    stringDNode *vpNew;
+    stringDNode *vpTemp;
+    stringDNode *vpCn;
+    int viCn;
+
+
+    
+    if ( 0<=index )
+    {
+        
+        if ( (*pDList).length<index )
+        {
+            printf ("The index is out the range of the DList !!!");
+            exit (1);
+        }
+
+        vpNew = funcstringDNodeCreate (value);
+
+        if ( (*pDList).length==0 )
+        {
+            (*pDList).H = vpNew;
+            (*pDList).T = vpNew;
+        }
+        else
+        {
+            if ( index==0 )
+            {
+                vpTemp = (*pDList).H;
+                (*pDList).H = vpNew;
+
+                (*pDList).H->Next = vpTemp;
+                vpTemp->Previous = (*pDList).H;
+            }
+            else if ( index==(*pDList).length )
+            {
+                vpTemp = (*pDList).T;
+                (*pDList).T = vpNew;
+
+                (*pDList).T->Previous = vpTemp;
+                vpTemp->Next = (*pDList).T;
+            }
+            else
+            {
+
+                vpCn = (*pDList).H;
+                for ( viCn=0; viCn<index; viCn++ )
+                {
+                    vpCn = vpCn->Next;
+                }
+                vpTemp = vpCn;
+
+
+                vpNew->Next = vpTemp;
+                vpNew->Previous = vpTemp->Previous;
+
+                vpTemp->Previous->Next = vpNew;
+                vpTemp->Previous = vpNew;
+            }
+        }
+    }
+    else
+    {
+        if ( (*pDList).length+1<-index )
+        {
+            printf ("The index is out the range of the DList !!!");
+            exit (1);
+        }
+
+
+        vpNew = funcstringDNodeCreate (value);
+
+        if ( (*pDList).length==0 )
+        {
+            (*pDList).H = vpNew;
+            (*pDList).T = vpNew;
+        }
+        else
+        {
+            if ( index==-1 )
+            {
+                vpTemp = (*pDList).T;
+                (*pDList).T = vpNew;
+
+                (*pDList).T->Previous = vpTemp;
+                vpTemp->Next = (*pDList).T;
+            }
+            else if ( index==-((*pDList).length)-1 )
+            {
+                vpTemp = (*pDList).H;
+                (*pDList).H = vpNew;
+
+                (*pDList).H->Next = vpTemp;
+                vpTemp->Previous = (*pDList).H;
+            }
+            else
+            {
+                vpCn = (*pDList).T;
+                for ( viCn=-1; index<viCn; viCn-- )
+                {
+                    vpCn = vpCn->Previous;
+                }
+                vpTemp = vpCn;
+
+                vpNew->Previous = vpTemp;
+                vpNew->Next = vpTemp->Next;
+
+                vpTemp->Next->Previous = vpNew;
+                vpTemp->Next = vpNew;
+            }
+        }
+    }
+        
+
+
+
+    (*pDList).length++;
+}
+
+
+void funcstringDListInsertBegin (stringDList *pDList, int value)
+{
+    funcstirngDListInsert (pDList, 0, value);   //&(*pintDList)
+}
+
+void funcstringDListInsertEnd (stringDList *pDList, int value)
+{
+    funcstirngDListInsert (pDList, -1, value);     // &(*pDList), pDList->length
+}
+
+
