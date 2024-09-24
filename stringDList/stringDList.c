@@ -321,4 +321,12 @@ int funcstringDListCount (stringDList DList, string value)
     return viFound;
 }
 
+void funcstringDListModify (stringDList *pDList, int index, string value)
+{
+
+    stringDNode *vp = funcstringDNodePointer (*pDList, index);
+
+    vp->Value = value;
+}
+
 
