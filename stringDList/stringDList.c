@@ -471,3 +471,54 @@ void funcstringDListCreateLIFO (stringDList *pDList, int DListSize)
         funcintDListInsertBegin (pDList, vsInput); // &(*pDList)
     }
 }
+
+void funcstringDListDisplay (stringDList DList)
+{
+
+    stringDNode *vpCn;
+    int viCn;
+
+    
+    if ( DList.length==0 )
+    {
+        printf ("The DList is Empty !!!\n");
+        return;
+    }
+    
+    vpCn = DList.H;
+    viCn = 0;
+    while (vpCn!=NULL)
+    {
+        printf ("The value %d is: ", viCn);
+        funcstringDisplay (vpCn->Value);
+        printf ("\n");
+        vpCn = vpCn->Next;
+        viCn++;
+    }
+    
+}
+
+void funcintDListDisplayReversed (stringDList DList)
+{
+
+    stringDNode *vpCn;
+    int viCn;
+
+    if ( DList.length==0 )
+    {
+        printf ("The Dlist is empty !!!\n");
+        return;
+    }
+    
+    
+    vpCn = DList.T;
+    viCn = 0;
+    while ( vpCn!=NULL )
+    {
+        printf ("The value %d is: ", viCn);
+        funcstringDisplay (vpCn->Value);
+        printf ("\n");
+        vpCn = vpCn->Previous;
+        viCn++;
+    }
+}
