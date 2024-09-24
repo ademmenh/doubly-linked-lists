@@ -265,6 +265,7 @@ void funcstringDListInsertEnd (stringDList *pDList, string value)
     funcstringDListInsert (pDList, -1, value);     // &(*pDList), pDList->length
 }
 
+
 string funcstringDListat (stringDList DList, int index)
 {
 
@@ -329,4 +330,69 @@ void funcstringDListModify (stringDList *pDList, int index, string value)
     vp->Value = value;
 }
 
+
+void funcstringDListRemove (stringDList *pDList, int index)
+{
+
+    stringDNode *vp;
+    stringDNode *vpTemp;
+
+
+
+    vp = funcstringDNodePointer (*pDList, index);
+
+
+
+    if ( (*pDList).length==1 )
+    {
+        vpTemp = vp;
+        (*pDList).H = NULL;
+        (*pDList).T = NULL;
+
+        funcstringDNodeFree (vpTemp);
+    }
+    else
+    {
+        if ( vp==(*pDList).H )
+        {
+            vpTemp = (*pDList).H;
+            (*pDList).H = (*pDList).H->Next;
+
+            (*pDList).H->Previous = NULL;
+            funcstringDNodeFree (vpTemp);
+        }
+        else if ( vp==(*pDList).T )
+        {
+            vpTemp = (*pDList).T;
+            (*pDList).T = (*pDList).T->Previous;
+
+            (*pDList).T->Next = NULL;
+            funcstringDNodeFree (vpTemp);
+        }
+        else
+        {
+            vpTemp = vp;
+
+            vpTemp->Previous->Next = vpTemp->Next;
+            vpTemp->Next->Previous = vpTemp->Previous;
+            funcstringDNodeFree (vpTemp);
+        }
+    }
+
+
+
+
+
+    (*pDList).length--;
+}
+
+void funcstringDListRemoveBegin (stringDList *pDList)
+{
+    funcstringDListRemove (pDList, 0);  // &(*pDList)
+}
+
+void funcstringDListRemoveEnd (stringDList *pDList)
+{
+    funcstringDListRemove (pDList, pDList->length-1);  // &(*pDList), (*pDList).length-1
+}
 
