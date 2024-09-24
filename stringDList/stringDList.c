@@ -299,3 +299,26 @@ int funcstringDListIndex (stringDList DList, string value)
     printf ("The Number %d do not exist in the DList !!!", value);
     exit(1);
 }
+
+int funcstringDListCount (stringDList DList, string value)
+{
+    
+    stringDNode *vpCn = DList.H;
+    int viFound = 0;
+
+
+
+    while ( vpCn!=NULL )
+    {
+        if ( funcstringCompare(vpCn->Value, value) )
+        {
+            viFound ++;
+        }
+
+        vpCn = vpCn->Next;
+    }
+
+    return viFound;
+}
+
+
