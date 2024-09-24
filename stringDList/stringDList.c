@@ -396,3 +396,13 @@ void funcstringDListRemoveEnd (stringDList *pDList)
     funcstringDListRemove (pDList, pDList->length-1);  // &(*pDList), (*pDList).length-1
 }
 
+void funcstringDListClear (stringDList *pDList)
+{
+
+    while ( (*pDList).length>0 )
+    {
+        funcstringDListRemove (pDList, 0);  // &(*pDList)
+    }
+}
+
+
