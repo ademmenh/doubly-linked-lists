@@ -1,7 +1,5 @@
 
-#ifndef _stringDLIST_C
-    #define _stringDLIST_C
-#endif
+#define _stringDLIST_C
 
 #ifndef _STDBOOL_H
     #include <stdbool.h>

@@ -774,7 +774,7 @@ intDList funcintDListSymmetricDifference (intDList DList1, intDList DList2)
 
 
 
-int funcQuerryInt ()
+int funcintInput ()
 {
 
     int viNum1;
@@ -791,7 +791,7 @@ void funcintDListCreateFIFO (intDList *pDList, int DListSize)
     int viCn;
     for ( viCn=0; viCn<DListSize; viCn++ )
     {
-        viValue = funcQuerryInt ();
+        viValue = funcintInput();
         funcintDListInsertEnd (pDList, viValue); // &(*pDList)
     }
 }
@@ -803,7 +803,7 @@ void funcintDListCreateLIFO (intDList *pDList, int DListSize)
     int viCn;
     for ( viCn=0; viCn<DListSize; viCn++)
     {
-        viValue = funcQuerryInt ();
+        viValue = funcintInput();
         funcintDListInsertBegin (pDList, viValue);   // &(*pDList)
     }
 }
@@ -865,6 +865,7 @@ void funcintDListSortReversed (intDList *pDList)
         vpCn1 = vpCn1->Previous;
     }
 }
+
 
 
 void funcintDListDisplay (intDList DList)
@@ -958,38 +959,3 @@ void funcintDListDisplayReversed (intDList DList)
 
 }
 */
-
-
-
-int main ()
-{
-
-    intDList vdlList1, vdlList2, vdlList3;
-    funcintDListInit (&vdlList1);
-    funcintDListInit (&vdlList2);
-    funcintDListInit (&vdlList3);
-
-    printf ("creating list1:\n");
-    funcintDListCreateFIFO (&vdlList1, 5);
-    printf ("\n\n");
-
-    printf ("Displaying list:\n");
-    funcintDListDisplay (vdlList1);
-    printf ("\n\n");
-
-    printf ("create list2:\n");
-    funcintDListCreateFIFO (&vdlList2, 5);
-    printf ("\n\n");
-
-    printf ("Displaying list:\n");
-    funcintDListDisplay (vdlList2);
-    printf ("\n\n");
-
-
-
-    vdlList3 = funcintDListSymmetricDifference (vdlList1, vdlList2);
-    printf ("Displaying list:\n");
-    funcintDListDisplay (vdlList3);
-    printf ("\n\n");
-    return 0;
-}

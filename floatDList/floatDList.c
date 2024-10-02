@@ -1,7 +1,5 @@
 
-#ifndef _floatDLIST_C
-    #define _floatDLIST_C
-#endif
+#define _floatDLIST_C
 
 #ifndef _STDBOOL_H
     #include <stdbool.h>
@@ -761,8 +759,8 @@ floatDList funcfloatDListSymmetricDifference (floatDList DList1, floatDList DLis
 
 
 
-
-float funcQuerryfloat ()
+/*
+float funcfloatInput ()
 {
 
     float vfNum1;
@@ -771,6 +769,7 @@ float funcQuerryfloat ()
 
     return vfNum1;
 }
+*/
 
 void funcfloatDListCreateFIFO (floatDList *pDList, int DListSize)
 {
@@ -779,7 +778,7 @@ void funcfloatDListCreateFIFO (floatDList *pDList, int DListSize)
     int viCn;
     for ( viCn=0; viCn<DListSize; viCn++ )
     {
-        vfValue = funcQuerryfloat ();
+        vfValue = funcfloatInput ();
         funcfloatDListInsertEnd (pDList, vfValue); // &(*pDList)
     }
 }
@@ -791,7 +790,7 @@ void funcfloatDListCreateLIFO (floatDList *pDList, int DListSize)
     int viCn;
     for ( viCn=0; viCn<DListSize; viCn++)
     {
-        vfValue = funcQuerryfloat ();
+        vfValue = funcfloatInput ();
         funcfloatDListInsertBegin (pDList, vfValue);   // &(*pDList)
     }
 }
@@ -946,40 +945,3 @@ void funcfloatDListDisplayReversed (floatDList DList)
 
 }
 */
-
-
-int main ()
-{
-
-    floatDList vdlList1, vdlList2, vdlList3;
-    funcfloatDListInit (&vdlList1);
-    funcfloatDListInit (&vdlList2);
-    funcfloatDListInit (&vdlList3);
-
-    printf ("creating list1:\n");
-    funcfloatDListCreateFIFO (&vdlList1, 5);
-    printf ("\n\n");
-
-    printf ("Displaying list:\n");
-    funcfloatDListDisplay (vdlList1);
-    printf ("\n\n");
-
-    printf ("create list2:\n");
-    funcfloatDListCreateFIFO (&vdlList2, 5);
-    printf ("\n\n");
-
-    printf ("Displaying list:\n");
-    funcfloatDListDisplay (vdlList2);
-    printf ("\n\n");
-
-
-
-    vdlList3 = funcfloatDListSymmetricDifference (vdlList1, vdlList2);
-    printf ("Displaying list:\n");
-    funcfloatDListDisplay (vdlList3);
-    printf ("\n\n");
-
-
-
-    return 0;
-}
