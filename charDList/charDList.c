@@ -758,20 +758,21 @@ charDList funccharDListSymmetricDifference (charDList DList1, charDList DList2)
 }
 
 
+#ifndef _func_CHARINPUT
+    char funccharInput ()
+    {
 
-char funccharInput ()
-{
+        char vcChar, vcBuffer;
 
-    char vcChar, vcBuffer;
+        printf ("Enter the value: ");
+        vcChar = getchar(); // fgetc (stdin)
+        vcBuffer = vcChar;
+        while (vcBuffer!='\n')
+        {vcBuffer = getchar();}
 
-    printf ("Enter the value: ");
-    vcChar = getchar(); // fgetc (stdin)
-    vcBuffer = vcChar;
-    while (vcBuffer!='\n')
-    {vcBuffer = getchar();}
-
-    return vcChar;
-}
+        return vcChar;
+    }
+#endif
 
 void funccharDListCreateFIFO (charDList *pDList, int DListSize)
 {

@@ -759,17 +759,17 @@ floatDList funcfloatDListSymmetricDifference (floatDList DList1, floatDList DLis
 
 
 
-/*
-float funcfloatInput ()
-{
+#ifndef _func_FLOATINPUT
+    float funcfloatInput ()
+    {
 
-    float vfNum1;
-    printf ("Enter the value: ");
-    scanf ("%f", &vfNum1);
+        float vfNum1;
+        printf ("Enter the value: ");
+        scanf ("%f", &vfNum1);
 
-    return vfNum1;
-}
-*/
+        return vfNum1;
+    }
+#endif
 
 void funcfloatDListCreateFIFO (floatDList *pDList, int DListSize)
 {

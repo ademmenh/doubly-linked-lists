@@ -404,44 +404,6 @@ void funcstringDListClear (stringDList *pDList)
 }
 
 
-
-void funcstringInput__ (string *pString)
-{
-
-    char Buffer [STRING_MAX_LENGTH];
-    int viBufferSize;
-    char vcClearBuffer;
-
-    int viCn;
-
-
-
-
-
-    // printf ("Enter the String: ");
-    fgets (Buffer, STRING_MAX_LENGTH, stdin);
-
-
-
-    viBufferSize = strlen (Buffer);
-    if ( Buffer[viBufferSize-1] != '\n' )
-    {
-        do
-        {
-            vcClearBuffer = getchar();
-        } while ( vcClearBuffer!='\n' );
-    }
-
-    for ( viCn=0; viCn<viBufferSize; viCn++ )   // viBufferSize won't reach the '\0'
-    {
-        if ( Buffer[viCn]=='\n' )               // in case of the size is less than STRING_MAX_LENGTH
-        {
-            break;
-        }
-        funcstringInsertEnd (pString, Buffer[viCn]);
-    }
-}
-
 void funcstringDListCreateFIFO (stringDList *pDList, int DListSize)
 {
 
@@ -450,8 +412,7 @@ void funcstringDListCreateFIFO (stringDList *pDList, int DListSize)
     for ( viCn=0; viCn<DListSize; viCn++ )
     {
         funcstringInit (&vsInput);
-        printf ("Enter the value %d:", viCn);
-        funcstringInput__ (&vsInput);
+        funcstringInput (&vsInput);
         funcintDListInsertEnd (pDList, vsInput); // &(*pDList)
     }
 }
@@ -464,8 +425,7 @@ void funcstringDListCreateLIFO (stringDList *pDList, int DListSize)
     for ( viCn=0; viCn<DListSize; viCn++ )
     {
         funcstringInit (&vsInput);
-        printf ("Enter the value %d:", viCn);
-        funcstringInput__ (&vsInput);
+        funcstringInput (&vsInput);
         funcintDListInsertBegin (pDList, vsInput); // &(*pDList)
     }
 }

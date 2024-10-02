@@ -1,7 +1,5 @@
 
-#ifndef _intDLIST_C
-    #define _intDLIST_C
-#endif
+#define _intDLIST_C
 
 #ifndef _STDBOOL_H
     #include <stdbool.h>
@@ -14,6 +12,7 @@
 #ifndef _STDLIB_H
     #include <stdlib.h>
 #endif
+
 
 
 
@@ -773,16 +772,17 @@ intDList funcintDListSymmetricDifference (intDList DList1, intDList DList2)
 }
 
 
+#ifndef _func_INTINPUT
+    int funcintInput ()
+    {
 
-int funcintInput ()
-{
+        int viNum1;
+        printf ("Enter the value: ");
+        scanf ("%d", &viNum1);
 
-    int viNum1;
-    printf ("Enter the value: ");
-    scanf ("%d", &viNum1);
-
-    return viNum1;
-}
+        return viNum1;
+    }
+#endif
 
 void funcintDListCreateFIFO (intDList *pDList, int DListSize)
 {

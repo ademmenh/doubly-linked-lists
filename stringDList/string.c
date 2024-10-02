@@ -785,42 +785,44 @@ void funcstringAssign (string *pString, char string [STRING_MAX_LENGTH])
     }
 }
 
-void funcstringInput (string *pString)
-{
-
-    char Buffer [STRING_MAX_LENGTH];
-    int viBufferSize;
-    char vcClearBuffer;
-
-    int viCn;
-
-
-
-
-
-    printf ("Enter the String: ");
-    fgets (Buffer, STRING_MAX_LENGTH, stdin);
-
-
-
-    viBufferSize = strlen (Buffer);
-    if ( Buffer[viBufferSize-1] != '\n' )
+#ifndef _func_STRINGINPUT
+    void funcstringInput (string *pString)
     {
-        do
-        {
-            vcClearBuffer = getchar();
-        } while ( vcClearBuffer!='\n' );
-    }
 
-    for ( viCn=0; viCn<viBufferSize; viCn++ )   // viBufferSize won't reach the '\0'
-    {
-        if ( Buffer[viCn]=='\n' )               // in case of the size is less than STRING_MAX_LENGTH
+        char Buffer [STRING_MAX_LENGTH];
+        int viBufferSize;
+        char vcClearBuffer;
+
+        int viCn;
+
+
+
+
+
+        printf ("Enter the String: ");
+        fgets (Buffer, STRING_MAX_LENGTH, stdin);
+
+
+
+        viBufferSize = strlen (Buffer);
+        if ( Buffer[viBufferSize-1] != '\n' )
         {
-            break;
+            do
+            {
+                vcClearBuffer = getchar();
+            } while ( vcClearBuffer!='\n' );
         }
-        funcstringInsertEnd (pString, Buffer[viCn]);
+
+        for ( viCn=0; viCn<viBufferSize; viCn++ )   // viBufferSize won't reach the '\0'
+        {
+            if ( Buffer[viCn]=='\n' )               // in case of the size is less than STRING_MAX_LENGTH
+            {
+                break;
+            }
+            funcstringInsertEnd (pString, Buffer[viCn]);
+        }
     }
-}
+#endif
 
 void funcstringDisplay (string String)
 {
